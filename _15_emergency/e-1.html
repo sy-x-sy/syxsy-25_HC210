@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>의식을 잃고 쓰러졌을 때 응급처치 가이드</title>
+    <link rel="stylesheet" href="e-1-g.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="e-1.css" />
+  </head>
+  <body>
+    <main class="element-b-food-add">
+      <div class="div">
+        <section class="overlap-group" role="main" aria-labelledby="main-title">
+          <header class="frame-3">
+            <button class="bring-back" type="button" aria-label="뒤로 가기">
+              <img class="vector" src="../vaccine/vacc/back.svg" alt="" />
+            </button>
+            <h1 class="text-wrapper-6" id="main-title">의식을 잃고 쓰러졌을 때</h1>
+          </header>
+          <ol class="emergency-steps" aria-label="응급처치 단계">
+            <li class="step-item">
+              <span class="text-wrapper-2" aria-hidden="true">1.</span>
+              <div class="overlap">
+                <div class="frame">
+                  <p class="text-wrapper">입 속에 이물질 유무 확인 후 제거</p>
+                </div>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="text-wrapper-3" aria-hidden="true">2.</span>
+              <div class="frame-wrapper">
+                <div class="div-wrapper">
+                  <p class="text-wrapper">코, 입에 손을 대서 호홉 확인</p>
+                </div>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="text-wrapper-4" aria-hidden="true">3.</span>
+              <div class="overlap-2">
+                <div class="frame-2">
+                  <p class="p">뒷다리 안쪽 대퇴동맥 짚어 맥박 확인</p>
+                </div>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="text-wrapper-5" aria-hidden="true">4.</span>
+              <div class="overlap-3">
+                <div class="frame-2">
+                  <p class="p">호흡과 맥박이 없는 경우 심폐소생술</p>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </main>
+
+    <!-- 📌 JavaScript로 back 버튼 동작 추가 -->
+    <script>
+      document.querySelector(".bring-back").addEventListener("click", function () {
+        window.location.href = "emergency.html";
+      });
+    </script>
+  </body>
+</html>

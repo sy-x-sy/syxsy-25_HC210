@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>계정 생성</title>
+  </head>
+  <body>
+    <main class="element-a-create-account">
+      <div class="account-container">
+        <h1 class="page-title">계정 생성</h1>
+        <form class="signup-form">
+          <div class="form-group">
+            <label for="nickname" class="form-label">닉네임</label>
+            <div class="input-field">
+              <input type="text" id="nickname" placeholder="example" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">아이디 (email)</label>
+            <div class="input-field">
+              <input type="email" id="email" placeholder="example@example.com" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label">전화번호</label>
+            <div class="input-field">
+              <input type="tel" id="phone" placeholder="+ 123 456 789" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="birthdate" class="form-label">생년월일</label>
+            <div class="input-field">
+              <input type="text" id="birthdate" placeholder="Dd / Mm /yy" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">비밀번호</label>
+            <div class="input-field">
+              <input type="password" id="password" placeholder="●●●●●●●●" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirm-password" class="form-label">비밀번호 확인</label>
+            <div class="input-field">
+              <input type="password" id="confirm-password" placeholder="●●●●●●●●" class="form-input" />
+            </div>
+          </div>
+          <button type="submit" class="submit-button">
+            <span class="button-text">회원가입</span>
+          </button>
+          <p class="login-prompt">
+            <span class="login-text">이미 계정이 있으신가요?&nbsp;&nbsp;</span>
+            <a href="../_1_login/login.html" class="login-link">로그인하기</a>
+          </p>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

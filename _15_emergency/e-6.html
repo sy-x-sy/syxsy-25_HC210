@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이물질이 기도에 걸렸을 때</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+  /* e-6 전용 오버라이드 */
+
+  /* 섹션 소제목 */
+  .sub-heading{
+    width: var(--pill-width);
+    max-width: calc(100% - 40px);
+    margin: 0 auto 10px;
+    padding: 6px 12px;
+    text-align: left;
+    font-weight: 800;
+    font-variation-settings: "wght" 800;
+    color: #3e5648;
+    background: #fff5dc;
+    border-radius: 16px 16px 0 0;
+  }
+
+  /* ▶ 말풍선 모서리를 좀 덜 둥글게 */
+  .step-bubble{
+    border-radius: 20px !important;
+  }
+
+  /* ▶ “효과가 없다면…” = 텍스트만 (배경/테두리 없음) */
+  .note-inline{
+    width: var(--pill-width);
+    max-width: calc(100% - 40px);
+    margin: 6px auto 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #3e5648;
+  }
+
+  /* ▶ 하위 단계: 번호와 텍스트를 같은 상자 안에 */
+  .sub-steps{
+    list-style: none;
+    margin: 0 auto 16px;
+    padding: 0;
+    width: var(--pill-width);
+    max-width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sub-steps li{ list-style: none; }
+
+  .sub-chip{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--pill);
+    border-radius: 18px;        /* 덜 둥글게 */
+    padding: 10px 14px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+  .sub-chip .n{
+    color: var(--muted);
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+  .sub-chip .txt{ flex: 1 1 auto; }
+
+  /* ▶ 소제목 크기 살짝 업 */
+.sub-heading{
+  font-size: 18px;               /* 16 → 18 */
+  padding: 8px 12px;             /* 살짝 높이감 */
+}
+
+/* ▶ “효과가 없다면…” 문구 더 크게 & 굵게 */
+.note-inline{
+  font-size: 16px;               /* 14 → 16 */
+  font-weight: 800;              /* 강조 */
+}
+
+/* ▶ 소형/대형견 바로 아래 텍스트 말풍선: 라운드 더 덜하게 */
+.step-bubble{
+  border-radius: 10px !important;  /* 20 → 16 (원하면 14까지 내려도 OK) */
+}
+/* ▶ 첫 번째 텍스트상자(소형/대형견 설명) 라운드 수정 */
+.step-center .step-bubble {
+  border-radius: 1px !important; /* 둥글기 조정 */
+}
+
+
+</style>
+
+</head>
+<body>
+  <main class="element-b-food-add">
+    <div class="div">
+      <section class="overlap-group" role="main" aria-labelledby="main-title">
+        <header class="frame-3">
+          <button class="bring-back" type="button" aria-label="뒤로 가기">
+            <img class="vector" src="../반려동물/vaccine/vacc/back.svg" alt="" />
+          </button>
+          <h1 class="text-wrapper-6" id="main-title">이물질이 기도에 걸렸을 때</h1>
+        </header>
+
+        <ol class="emergency-steps" aria-label="기도 이물질 응급처치">
+          <!-- 소형견 -->
+          <li class="step-item">
+  <div class="sub-heading">〈 소형견 〉</div>
+
+  <div class="step-center">
+    <div class="step-bubble">
+      <p>강아지 입이 바닥을 향하도록 거꾸로 들어 4~5회 털어줌</p>
+    </div>
+  </div>
+
+  <!-- 텍스트만 단독 표시 -->
+  <div class="note-inline">효과가 없다면 하임리히법 실시</div>
+
+  <!-- 번호+텍스트 한 상자 -->
+  <ul class="sub-steps">
+    <li><div class="sub-chip"><span class="n">1.</span><span class="txt">강아지를 안고 배가 하늘을 보게 눕힌다.</span></div></li>
+    <li><div class="sub-chip"><span class="n">2.</span><span class="txt">손바닥으로 배에서 가슴 방향으로 흉곽을 압박하듯 쓸어내린다.</span></div></li>
+    <li><div class="sub-chip"><span class="n">3.</span><span class="txt">강아지의 어깨뼈 사이를 손바닥으로 4~5회 쳐준다.</span></div></li>
+  </ul>
+</li>
+
+
+          <li class="step-item">
+  <div class="sub-heading">〈 대형견 〉</div>
+
+  <div class="step-center">
+    <div class="step-bubble">
+      <p>뒷다리를 잡고 머리가 바닥을 향하도록 들어올려 4~5회 털어줌</p>
+    </div>
+  </div>
+
+  <div class="note-inline">효과가 없다면 하임리히법 실시</div>
+
+  <ul class="sub-steps">
+    <li><div class="sub-chip"><span class="n">1.</span><span class="txt">강아지 뒤에 서서 뒷다리를 들어 올려 몸을 기울여준다.</span></div></li>
+    <li><div class="sub-chip"><span class="n">2.</span><span class="txt">배를 팔로 둘러 한 손은 주먹, 다른 손은 그 위에 얹고 배와 흉곽 사이를 빠르게 4~5회 압박한다.</span></div></li>
+    <li><div class="sub-chip"><span class="n">3.</span><span class="txt">어깨뼈 사이를 가볍게 4~5회 쳐준다.</span></div></li>
+  </ul>
+</li>
+
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // 메뉴로 돌아가기
+    document.querySelector(".bring-back")
+      .addEventListener("click", () => location.href = "emergency.html");
+  </script>
+</body>
+</html>

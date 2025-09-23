@@ -1,0 +1,131 @@
+/* ✅ 핵심 개선사항 요약:
+   - 폼 구조를 피그마처럼 정돈
+   - 달력버튼 위치 정확히 조정
+   - placeholder 색상, input box 시각적 강조
+   - margin/padding 조정으로 요소 간격 개선 */
+
+/* 배경 전체 */
+.element-b-transaction {
+  background-color: #f8de9a;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 컨테이너 */
+.vaccination-record-container {
+  background-color: #f8de9a;
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+}
+
+/* 상단 헤더 */
+.vaccination-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 64px 24px 0;
+  position: relative;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.page-title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #000000;
+  margin-left: 16px;
+}
+
+/* 폼 */
+.vaccination-form {
+  margin-top: 30px;
+  padding: 30px 24px 60px;
+  background-color: #fff6df;
+  border-radius: 30px 30px 0 0;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 18px;
+  background-color: #f8df9d; /* light green */
+  color: #333;
+  opacity: 0.9;
+}
+
+.form-input::placeholder {
+  color: #777;
+  opacity: 0.6;
+}
+
+.form-input:focus {
+  outline: 2px solid #f8df9d;
+  opacity: 1;
+}
+
+/* 날짜 선택 영역 */
+.date-input-container {
+  position: relative;
+}
+
+.calendar-button {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.calendar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 제출 버튼 */
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #f8df9d; /* main green */
+  border: none;
+  border-radius: 30px;
+  margin-top: 40px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.submit-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+}

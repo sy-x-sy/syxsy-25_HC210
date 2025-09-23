@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="vacc_globals.css" />
+  <link rel="stylesheet" href="vacc_styleguide.css" />
+  <link rel="stylesheet" href="vacc_style.css" />
+  <title>예방접종 기록</title>
+  <style>
+    .delete-button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: red;
+      margin-left: 8px;
+    }
+
+    .add-record-button {
+      margin: 30px auto;
+      display: block;
+      padding: 10px 20px;
+      background-color: #f8de9a;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="vaccination-record">
+    <header>
+      <a href="../_3_home/home.html" class="back-button" aria-label="뒤로 가기">
+        <img src="vacc/back.svg" alt="뒤로 가기 아이콘" />
+      </a>
+      <h1>예방접종 기록</h1>
+    </header>
+
+    <section class="monthly-vaccinations">
+      <h2>이번달 예방접종 목록</h2>
+      <ul id="this-month-list">
+        <!-- JS로 자동 삽입됨 -->
+      </ul>
+    </section>
+
+    <section class="vaccination-timeline">
+      <h2 class="visually-hidden">월별 예방접종 내역</h2>
+      <div id="vaccination-list"></div>
+    </section>
+
+    <div style="text-align: center">
+      <button onclick="location.href='vacc_input.html'" class="add-record-button">+ 기록 추가하기</button>
+    </div>
+  </main>
+
+  <script>
+    const records = JSON.parse(localStorage.getItem("vaccinations") || "[]");
+
+    const thisMonthList = document.getElementById("this-month-list");
+    const currentMonth = new Date().getMonth() + 1;
+    const currentMonthVaccines = records.filter(r => r.month === currentMonth);
+    currentMonthVaccines.forEach(r => {
+      const li = document.createElement("li");
+      li.textContent = r.name;
+      thisMonthList.appendChild(li);
+    });
+
+    const iconMap = {
+      "광견병": "vaccine.svg",
+      "종합백신": "pet.svg",
+      "인플루엔자": "medicine.svg",
+      "켄넬코프": "medicine.svg"
+    };
+
+    const grouped = {};
+    records.forEach((r) => {
+      if (!grouped[r.month]) grouped[r.month] = [];
+      grouped[r.month].push(r);
+    });
+
+    const container = document.getElementById("vaccination-list");
+    const monthNames = ["", "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+
+    Object.keys(grouped)
+      .sort((a, b) => Number(a) - Number(b))
+      .forEach((month) => {
+        const section = document.createElement("article");
+        section.className = "month";
+        section.innerHTML = `<h3>${monthNames[month]}</h3><ul></ul>`;
+
+        const ul = section.querySelector("ul");
+        grouped[month].forEach((r, i) => {
+          const index = records.findIndex(item =>
+            item.name === r.name &&
+            item.date === r.date &&
+            item.hospital === r.hospital &&
+            item.price === r.price
+          );
+
+          const icon = iconMap[r.name] || "medical.svg";
+
+          ul.innerHTML += `
+              <li class="vaccination-item">
+                <img src="vacc/${icon}" alt="" class="icon" />
+                <div class="details">
+                  <h4>${r.name}</h4>
+                  <time>${r.date}</time>
+                </div>
+                <div class="hospital">${r.hospital}</div>
+                <div class="cost">${r.price}원</div>
+                <button class="delete-button" data-index="${index}">🗑</button>
+              </li>
+            `;
+        });
+
+        container.appendChild(section);
+      });
+
+    // 삭제 이벤트 처리
+    document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-button")) {
+    const index = e.target.getAttribute("data-index");
+    const records = JSON.parse(localStorage.getItem("vaccinations") || "[]");
+    records.splice(index, 1);
+    localStorage.setItem("vaccinations", JSON.stringify(records));
+    location.reload();
+  }
+});
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>위기 상황별 응급처치 방법</title>
+    <link rel="stylesheet" href="emergency.css" />
+  </head>
+  <body>
+    <div class="emergency-container">
+      <button class="bring-back" type="button" aria-label="뒤로가기">
+        <img src="../_14_vaccine/vacc/back.svg" alt="뒤로가기" />
+      </button>
+
+      <h1 class="emergency-title">위기 상황별 응급처치 방법</h1>
+
+      <section class="emergency-grid">
+        <div class="emergency-card">
+          <img src="dog (2) 1.svg" alt="의식을 잃고 쓰러진 강아지" />
+          <p>의식을 잃고 쓰러졌을 때</p>
+        </div>
+        <div class="emergency-card">
+          <img src="cpr (1) 1.svg" alt="강아지 심폐소생술" />
+          <p>강아지 심폐소생술</p>
+        </div>
+        <div class="emergency-card">
+          <img src="bone 1.svg" alt="뼈가 부러졌을 때" />
+          <p>뼈가 부러졌을 때</p>
+        </div>
+        <div class="emergency-card">
+          <img src="fire (1) 1.svg" alt="화상 입었을 때" />
+          <p>화상을 입었을 때</p>
+        </div>
+        <div class="emergency-card">
+          <img src="blood-bag 1.svg" alt="피를 흘릴 때" />
+          <p>피를 흘릴 때</p>
+        </div>
+        <div class="emergency-card">
+          <img src="dog (1) 1.svg" alt="이물질이 기도에 걸렸을 때" />
+          <p>이물질이 기도에 걸렸을 때</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // 뒤로가기 버튼 기능 (home.html로 이동)
+        const btn = document.querySelector('.bring-back');
+        if (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // home.html 파일의 상대 경로로 이동
+            window.location.href = '../_3_home/home.html';
+          });
+        }
+
+        // 각 카드를 클릭하면 해당하는 페이지로 이동
+        const cards = document.querySelectorAll('.emergency-card');
+        const fileMap = [
+          'e-1.html',
+          'e-2.html',
+          'e-3.html',
+          'e-4.html',
+          'e-5.html',
+          'e-6.html'
+        ];
+
+        cards.forEach((card, index) => {
+          card.addEventListener('click', () => {
+            window.location.href = fileMap[index];
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

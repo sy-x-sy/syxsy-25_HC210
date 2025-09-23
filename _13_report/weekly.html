@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주간/월간 리포트</title>
+    <link rel="stylesheet" href="weekly_style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="report-container">
+      <!-- ✅ 뒤로가기 버튼 -->
+      <div class="back-button">
+        <a href="../home/home.html">
+          <img src="../vaccine/vacc/back.svg" alt="Back" />
+        </a>
+      </div>
+
+      <!-- ✅ 타이틀 -->
+      <h1 class="report-title">주간/월간 리포트</h1>
+
+      <!-- ✅ 최고 피로도 & 심박수 -->
+      <div class="summary-box">
+        <div class="summary-item">
+          <img src="Income.svg" alt="피로도 아이콘" class="summary-icon" />
+          <div class="summary-label">최고 피로도</div>
+          <div class="summary-value">7,783.00</div>
+        </div>
+        <div class="summary-item">
+          <img src="Income.svg" alt="심박수 아이콘" class="summary-icon" />
+          <div class="summary-label">최고 심박수</div>
+          <div class="summary-value highlight">1,187.40</div>
+        </div>
+      </div>
+
+      <!-- ✅ 설명 -->
+      <p id="report-subtitle" class="report-subtitle">☑ 지난주보다 피로도가 증가했습니다.</p>
+
+      <!-- ✅ 토글 버튼 -->
+      <div class="toggle-buttons">
+        <button id="weeklyBtn" class="tab-button active">Weekly</button>
+        <button id="monthlyBtn" class="tab-button">Monthly</button>
+      </div>
+
+      <!-- ✅ 차트 -->
+      <div class="chart-box">
+        <p class="chart-label">근육 피로도 & 심박수</p>
+        <canvas id="fatigueChart"></canvas>
+      </div>
+
+      <!-- ✅ 평균값 -->
+      <div class="stats">
+        <div class="stat-box">
+          <img src="../icons/file-chart-column.svg" alt="icon" class="stat-icon" />
+          <p class="stat-label">평균 피로도</p>
+          <p class="stat-value" id="avgFatigue">11,420.00</p>
+        </div>
+        <div class="stat-box">
+          <img src="../icons/heart-pulse.svg" alt="icon" class="stat-icon" />
+          <p class="stat-label">평균 심박수</p>
+          <p class="stat-value" id="avgHeartRate">20,000.20</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const weeklyData = {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        fatigue: [2500, 7000, 8700, 9500, 12000, 500, 300],
+        heartRate: [7200, 8100, 9200, 10500, 11000, 700, 500],
+        avgFatigue: '11,420.00',
+        avgHeart: '20,000.20',
+        subtitle: '☑ 지난주보다 피로도가 증가했습니다.'
+      };
+
+      const monthlyData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        fatigue: [10000, 14000, 8000, 12000, 13000, 9000],
+        heartRate: [15000, 13000, 10000, 14000, 15000, 12000],
+        avgFatigue: '47,200.00',
+        avgHeart: '35,510.20',
+        subtitle: '☑ 지난달보다 피로도가 감소했습니다.'
+      };
+
+      const ctx = document.getElementById('fatigueChart').getContext('2d');
+      const fatigueChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: weeklyData.labels,
+          datasets: [
+            {
+              label: '피로도',
+              data: weeklyData.fatigue,
+              backgroundColor: '#f2b138',
+              borderRadius: 6,
+            },
+            {
+              label: '심박수',
+              data: weeklyData.heartRate,
+              backgroundColor: '#1A1A1A',
+              borderRadius: 6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                color: '#333',
+                font: {
+                  size: 14,
+                  weight: '500',
+                },
+              },
+            },
+          },
+          scales: {
+            y: {
+              ticks: {
+                beginAtZero: true,
+                stepSize: 2000,
+              },
+            },
+          },
+        },
+      });
+
+      // 전환 버튼 이벤트
+      const weeklyBtn = document.getElementById('weeklyBtn');
+      const monthlyBtn = document.getElementById('monthlyBtn');
+      const avgFatigue = document.getElementById('avgFatigue');
+      const avgHeartRate = document.getElementById('avgHeartRate');
+      const reportSubtitle = document.getElementById('report-subtitle');
+
+      weeklyBtn.addEventListener('click', () => {
+        weeklyBtn.classList.add('active');
+        monthlyBtn.classList.remove('active');
+
+        fatigueChart.data.labels = weeklyData.labels;
+        fatigueChart.data.datasets[0].data = weeklyData.fatigue;
+        fatigueChart.data.datasets[1].data = weeklyData.heartRate;
+        fatigueChart.update();
+
+        avgFatigue.textContent = weeklyData.avgFatigue;
+        avgHeartRate.textContent = weeklyData.avgHeart;
+        reportSubtitle.textContent = weeklyData.subtitle;
+      });
+
+      monthlyBtn.addEventListener('click', () => {
+        monthlyBtn.classList.add('active');
+        weeklyBtn.classList.remove('active');
+
+        fatigueChart.data.labels = monthlyData.labels;
+        fatigueChart.data.datasets[0].data = monthlyData.fatigue;
+        fatigueChart.data.datasets[1].data = monthlyData.heartRate;
+        fatigueChart.update();
+
+        avgFatigue.textContent = monthlyData.avgFatigue;
+        avgHeartRate.textContent = monthlyData.avgHeart;
+        reportSubtitle.textContent = monthlyData.subtitle;
+      });
+      
+    </script>
+  </body>
+</html>
+

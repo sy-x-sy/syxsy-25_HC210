@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>출혈이 발생했을 때</title>
+  <!-- 공용 스타일 -->
+  <link rel="stylesheet" href="common.css" />
+</head>
+<body>
+  <main class="element-b-food-add">
+    <div class="div">
+      <section class="overlap-group" role="main" aria-labelledby="main-title">
+        <header class="frame-3">
+          <button class="bring-back" type="button" aria-label="뒤로 가기">
+            <img class="vector" src="../반려동물/vaccine/vacc/back.svg" alt="" />
+          </button>
+          <h1 class="text-wrapper-6" id="main-title">출혈이 발생했을 때</h1>
+        </header>
+
+        <ol class="emergency-steps" aria-label="출혈 응급처치 단계">
+          <li class="step-item">
+            <span class="text-wrapper-2" aria-hidden="true">1.</span>
+            <div class="step-center">
+              <div class="step-bubble">
+                <p>출혈 부위에 깨끗한 천이나 붕대를 대고 압박하여 출혈을 멈추게 한다.</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <span class="text-wrapper-3" aria-hidden="true">2.</span>
+            <div class="step-center">
+              <div class="step-bubble">
+                <p>상처 부위를 몸통보다 높게 하여 출혈량을 줄인다.</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <span class="text-wrapper-4" aria-hidden="true">3.</span>
+            <div class="step-center">
+              <div class="step-bubble">
+                <p>내부 출혈이 의심된다면, 신속히 동물병원으로 이동한다.</p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // 뒤로 가기 버튼 클릭 시 emergency.html로 이동
+    document.querySelector(".bring-back")
+      .addEventListener("click", () => location.href = "emergency.html");
+  </script>
+</body>
+</html>

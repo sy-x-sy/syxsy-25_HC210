@@ -1,0 +1,380 @@
+.element-a-security-pin {
+  background-color: #f8df9d;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.element-a-security-pin .div {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.element-a-security-pin .overlap-group {
+  position: absolute;
+  width: 429px;
+  height: 745px;
+  top: 187px;
+  left: 1px;
+  background-image: url(./img/base-shape.svg);
+  background-size: 100% 100%;
+}
+
+.element-a-security-pin .p {
+  width: 273px;
+  height: 28px;
+  top: 634px;
+  left: 78px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: transparent;
+  font-size: var(--paragraph-font-size);
+  line-height: var(--paragraph-line-height);
+  position: absolute;
+  text-align: center;
+  letter-spacing: var(--paragraph-letter-spacing);
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-security-pin .text-wrapper {
+  color: #093030;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+}
+
+.element-a-security-pin .span {
+  color: #3299ff;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+}
+
+.element-a-security-pin .log-in-dark-mode {
+  position: absolute;
+  width: 169px;
+  height: 36px;
+  top: 307px;
+  left: 132px;
+  background-color: var(--main-green);
+  border-radius: 30px;
+}
+
+.element-a-security-pin .log-in {
+  position: absolute;
+  width: 220px;
+  height: 22px;
+  top: 5px;
+  left: -26px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.element-a-security-pin .log-in-wrapper {
+  position: absolute;
+  width: 169px;
+  height: 36px;
+  top: 362px;
+  left: 132px;
+  background-color: var(--light-green);
+  border-radius: 30px;
+}
+
+.element-a-security-pin .log-in-2 {
+  position: absolute;
+  width: 208px;
+  height: 22px;
+  top: 5px;
+  left: -20px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-bar);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.element-a-security-pin .text-wrapper-2 {
+  height: 22px;
+  top: 89px;
+  left: 57px;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--dark-mode-green-bar);
+  font-size: var(--titlle-font-size);
+  line-height: var(--titlle-line-height);
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  font-style: var(--titlle-font-style);
+}
+
+.element-a-security-pin .frame {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 15px;
+  position: absolute;
+  top: 180px;
+  left: 60px;
+}
+
+.element-a-security-pin .pin {
+  display: flex;
+  width: 38.78px;
+  height: 38.78px;
+  align-items: flex-start;
+  gap: 8.53px;
+  position: relative;
+}
+
+.element-a-security-pin .ellipse {
+  position: relative;
+  width: 39.26px;
+  height: 39.26px;
+  margin-bottom: -0.47px;
+  margin-right: -0.47px;
+  border-radius: 19.63px;
+  border: 2.98px solid;
+  border-color: var(--main-green);
+}
+
+.element-a-security-pin .text-wrapper-3 {
+  position: absolute;
+  height: 19px;
+  top: 9px;
+  left: 15px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-bar);
+  font-size: 17.1px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 18.8px;
+  white-space: nowrap;
+}
+
+.element-a-security-pin .text-wrapper-4 {
+  position: absolute;
+  height: 19px;
+  top: 9px;
+  left: 16px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-bar);
+  font-size: 17.1px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 18.8px;
+  white-space: nowrap;
+}
+
+.element-a-security-pin .text-wrapper-5 {
+  height: 22px;
+  top: 99px;
+  left: 125px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 30px;
+  line-height: 22px;
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  letter-spacing: 0;
+}
+/* Original CSS will be injected here */
+
+/* Refactored and improved CSS */
+.element-a-security-pin {
+  background-color: #f8df9d;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 132vh;
+}
+
+.security-pin-container {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.security-pin-content {
+  position: absolute;
+  width: 429px;
+  height: 745px;
+  top: 187px;
+  left: 1px;
+  background-image: url(Base\ Shape.svg);
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.security-pin-title {
+  height: 22px;
+  top: 99px;
+  left: 125px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 30px;
+  line-height: 22px;
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.security-pin-instruction {
+  height: 22px;
+  margin-top: 89px;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--dark-mode-green-bar);
+  font-size: var(--titlle-font-size);
+  line-height: var(--titlle-line-height);
+  white-space: nowrap;
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  font-style: var(--titlle-font-style);
+}
+
+.security-pin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.pin-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 70px;
+  margin-bottom: 89px;
+}
+
+.pin-digit {
+  display: flex;
+  width: 38.78px;
+  height: 38.78px;
+  position: relative;
+}
+
+.pin-circle {
+  position: relative;
+  width: 39.26px;
+  height: 39.26px;
+  margin-bottom: -0.47px;
+  margin-right: -0.47px;
+  border-radius: 19.63px;
+  border: 2.98px solid;
+  border-color: var(--main-green);
+}
+
+.pin-number {
+  position: absolute;
+  height: 19px;
+  top: 9px;
+  left: 15px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-bar);
+  font-size: 17.1px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 18.8px;
+  white-space: nowrap;
+}
+
+.pin-number-centered {
+  left: 16px;
+}
+
+.submit-button {
+  width: 169px;
+  height: 36px;
+  background-color: var(--main-green);
+  border-radius: 30px;
+  border: none;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+  cursor: pointer;
+  margin-bottom: 19px;
+}
+
+.resend-button {
+  width: 169px;
+  height: 36px;
+  background-color: var(--light-green);
+  border-radius: 30px;
+  border: none;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-bar);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+  cursor: pointer;
+  margin-bottom: 236px;
+}
+
+.signup-prompt {
+  width: 273px;
+  height: 28px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  font-size: var(--paragraph-font-size);
+  line-height: var(--paragraph-line-height);
+  text-align: center;
+  letter-spacing: var(--paragraph-letter-spacing);
+  font-style: var(--paragraph-font-style);
+}
+
+.signup-text {
+  color: #093030;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+}
+
+.signup-link {
+  color: #3299ff;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+  cursor: pointer;
+}

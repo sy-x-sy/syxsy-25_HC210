@@ -1,0 +1,97 @@
+/* === 최종본: Figma 스타일 매칭 & 말풍선 완전 중앙/동일 너비 === */
+
+/* 폰트 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+html, body {
+  font-family: "Pretendard Variable","Pretendard",-apple-system,system-ui,
+               "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Segoe UI,Roboto,sans-serif;
+  margin:0;
+}
+
+/* 테마 & 말풍선 폭 */
+:root{
+  --bg:#F8DE9A;
+  --panel:#FFF5DC;
+  --pill:#EFE6CF;
+  --text:#2F2F2F;
+  --muted:#8E8E8E;
+  --screen-w:430px;
+  --radius-2xl:28px;
+  --pill-width:360px;          /* ← 말풍선 너비 한 번에 조절 */
+}
+
+/* 화면 프레임 */
+body{ background:var(--bg); color:var(--text); }
+.element-b-food-add{ display:flex; justify-content:center; }
+.element-b-food-add .div{ width:100%; max-width:var(--screen-w); min-height:932px; }
+
+/* 헤더 */
+.overlap-group{ background:var(--bg); }
+.frame-3{
+  position:relative; display:flex; align-items:center; gap:12px;
+  height:88px; padding:0 20px; background:var(--bg);
+}
+.bring-back{ border:0; background:transparent; cursor:pointer; padding:6px; width:40px; height:32px; display:inline-flex; align-items:center; justify-content:center; }
+.bring-back .vector{ width:18px; height:18px; filter:brightness(0); opacity:.9; }
+.text-wrapper-6{ position:absolute; left:50%; transform:translateX(-50%); margin:0; font-weight:700; font-size:18px; line-height:1.2; }
+
+/* 패널 */
+.emergency-steps{
+  list-style:none; margin:0; padding:28px 20px 40px;
+  background:var(--panel);
+  border-top-left-radius:var(--radius-2xl);
+  border-top-right-radius:var(--radius-2xl);
+  min-height:calc(932px - 88px);
+  display:flex; flex-direction:column; gap:28px;
+  box-shadow:0 -1px 0 rgba(0,0,0,0.02) inset;
+}
+
+/* 항목(숫자 위, 말풍선 아래) */
+.step-item{ display:flex; flex-direction:column; align-items:center; gap:10px; padding:8px 0; }
+
+/* 번호: 왼쪽 정렬 + 들여쓰기 + 아래 여백 */
+.step-item > [class^="text-wrapper-"]{
+  align-self:flex-start;
+  margin:0 0 8px 16px;          /* ← 겹침 없애는 핵심 */
+  text-align:left;
+  font-weight:700; font-size:16px; color:var(--muted); line-height:1;
+}
+
+/* 중간 래퍼들을 강제로 중앙 정렬 컨테이너로 */
+.step-item .overlap,
+.step-item .frame-wrapper,
+.step-item .overlap-2,
+.step-item .overlap-3{
+  display:flex !important;
+  justify-content:center !important;
+  width:100% !important;
+}
+
+/* 말풍선: 모두 같은 길이 + 정확히 중앙 + 한 줄 */
+.step-item .frame,
+.step-item .div-wrapper,
+.step-item .frame-2{
+  position:static !important;       /* 이전 absolute 등 무효화 */
+  display:block !important;
+  width:var(--pill-width) !important;
+  max-width:calc(100% - 40px) !important; /* 패널 좌우 패딩 고려 */
+  margin:0 auto !important;         /* 수평 중앙 */
+  padding:12px 20px !important;
+  white-space:nowrap !important;     /* 한 줄 유지 */
+  text-align:center !important;
+  background:var(--pill) !important;
+  border-radius:999px !important;
+  box-shadow:0 1px 0 rgba(0,0,0,0.03) !important;
+}
+
+/* 말풍선 안 텍스트 */
+.step-item .text-wrapper,
+.step-item .p{
+  margin:0; font-size:16px; line-height:1.35; font-weight:700; color:var(--text);
+}
+
+/* 작은 화면 보정 */
+@media (max-width:360px){
+  :root{ --pill-width:320px; }       /* 화면 좁아지면 자동으로 줄이기 */
+  .step-item > [class^="text-wrapper-"]{ margin-left:12px; }
+}

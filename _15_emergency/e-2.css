@@ -1,0 +1,167 @@
+/* ===== common-emergency.css =====
+ * Figma 매칭 + 말풍선 중앙/동일 너비 + 공용 재사용 버전
+ * 1) e-1.html, e-2.html 등 모든 페이지에서 그대로 사용
+ * 2) 말풍선 폭만 바꾸고 싶으면 --pill-width 값만 조절
+ */
+
+/* 폰트 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+html, body {
+  font-family: "Pretendard Variable","Pretendard",-apple-system,system-ui,
+               "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Segoe UI,Roboto,sans-serif;
+  margin: 0;
+}
+
+/* 테마 & 말풍선 폭 */
+:root{
+  --bg:#F8DE9A;
+  --panel:#FFF5DC;
+  --pill:#EFE6CF;
+  --text:#2F2F2F;
+  --muted:#8E8E8E;
+  --screen-w:430px;
+  --radius-2xl:28px;
+  --pill-width:360px;             /* ← 말풍선 너비 통합 제어 */
+}
+
+/* 화면 프레임(가운데 정렬) */
+body{ background:var(--bg); color:var(--text); }
+.element-b-food-add{ display:flex; justify-content:center; }
+.element-b-food-add .div{ width:100%; max-width:var(--screen-w); min-height:932px; }
+
+/* 헤더(공용) */
+.overlap-group{ background:var(--bg); }
+.frame-3{
+  position:relative;
+  display:flex; align-items:center; gap:12px;
+  height:88px; padding:0 20px; background:var(--bg);
+}
+.bring-back{
+  border:0; background:transparent; cursor:pointer; padding:6px;
+  width:40px; height:32px; display:inline-flex; align-items:center; justify-content:center;
+}
+.bring-back .vector{ width:18px; height:18px; filter:brightness(0); opacity:.9; }
+.text-wrapper-6{ position:absolute; left:50%; transform:translateX(-50%); margin:0; font-weight:700; font-size:18px; line-height:1.2; }
+
+/* 하단 패널(공용 리스트 컨테이너) */
+.emergency-steps{
+  list-style:none; margin:0; padding:28px 20px 40px;
+  background:var(--panel);
+  border-top-left-radius:var(--radius-2xl);
+  border-top-right-radius:var(--radius-2xl);
+  min-height:calc(932px - 88px);
+  display:flex; flex-direction:column; gap:28px;
+  box-shadow:0 -1px 0 rgba(0,0,0,0.02) inset;
+}
+
+/* 항목(숫자 위, 말풍선 아래) */
+.step-item{
+  display:flex; flex-direction:column; align-items:center;
+  gap:10px; padding:8px 0;
+}
+
+/* 번호(여러 HTML 구조 호환: text-wrapper-* 또는 step-number 둘 다 지원) */
+.step-item > [class^="text-wrapper-"],
+.step-item .step-number{
+  align-self:flex-start;
+  margin:0 0 8px 16px;            /* 들여쓰기 + 아래 간격 */
+  text-align:left;
+  font-weight:700; font-size:16px; color:var(--muted); line-height:1;
+}
+
+/* 중간 래퍼를 중앙 정렬 컨테이너로 강제(여러 구조 호환) */
+.step-item .overlap,
+.step-item .frame-wrapper,
+.step-item .overlap-2,
+.step-item .overlap-3,
+.step-item .step-center{
+  display:flex !important;
+  justify-content:center !important;
+  width:100% !important;
+}
+
+/* 말풍선(여러 구조 호환: frame/div-wrapper/frame-2/step-bubble 모두 지원) */
+.step-item .frame,
+.step-item .div-wrapper,
+.step-item .frame-2,
+.step-item .step-bubble{
+  position:static !important;
+  display:block !important;
+  width:var(--pill-width) !important;
+  max-width:calc(100% - 40px) !important;   /* 패널 좌우 패딩(20px*2) 고려 */
+  margin:0 auto !important;                 /* 수평 중앙 */
+  padding:12px 20px !important;
+  white-space:nowrap !important;            /* 한 줄 유지 */
+  text-align:center !important;
+  background:var(--pill) !important;
+  border-radius:999px !important;
+  box-shadow:0 1px 0 rgba(0,0,0,0.03) !important;
+}
+
+/* 말풍선 내부 텍스트(여러 구조 호환: .text-wrapper, .p) */
+.step-item .text-wrapper,
+.step-item .p{
+  margin:0; font-size:16px; line-height:1.35; font-weight:700; color:var(--text);
+}
+
+/* 작은 화면 보정 */
+@media (max-width:360px){
+  :root{ --pill-width:320px; }               /* 폭 자동 축소 */
+  .step-item > [class^="text-wrapper-"],
+  .step-item .step-number{ margin-left:12px; }
+}
+
+/* === e-2 화면용 공통 패치 === */
+
+/* 1) 말풍선: 한 줄 고정 해제 → 자동 줄바꿈 + 한국어 가독성 */
+.step-item .frame,
+.step-item .div-wrapper,
+.step-item .frame-2,
+.step-item .step-bubble{
+  white-space: normal !important;     /* 줄바꿈 허용 */
+  word-break: keep-all !important;    /* 한국어 단어 단위 줄바꿈 */
+  text-align: center !important;
+  /* 긴 문장 대비 약간 더 넓히고 싶으면 아래 값만 조절 */
+  width: min(380px, calc(100% - 40px)) !important; /* 360→380 */
+  padding: 12px 20px !important;
+}
+
+/* 2) 말풍선 안 텍스트 더 굵게 */
+.step-item .text-wrapper,
+.step-item .p{
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  line-height: 1.5 !important;  /* 2~3줄에서도 숨 좀 쉬게 */
+}
+
+/* 3) 리스트 안의 숫자에 제목 규칙(.text-wrapper-6) 안 먹게 리셋 */
+.emergency-steps .text-wrapper-6{
+  position: static !important;
+  left: auto !important;
+  transform: none !important;
+  margin: 0 0 8px 16px !important;  /* 다른 번호와 동일 들여쓰기 */
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: var(--muted) !important;
+  line-height: 1 !important;
+  text-align: left !important;
+  align-self: flex-start !important;
+}
+
+/* === 말풍선 텍스트 굵기만 강화 (다른 건 그대로) === */
+/* 원하는 굵기 숫자만 바꾸면 돼요: 700 ~ 900 */
+:root { --step-wght: 700; }
+
+.emergency-steps .step-item .frame > p,
+.emergency-steps .step-item .div-wrapper > p,
+.emergency-steps .step-item .frame-2 > p,
+.emergency-steps .step-item .step-bubble,
+.emergency-steps .step-item .step-bubble > *,
+.emergency-steps .step-item .text-wrapper,
+.emergency-steps .step-item .p {
+  font-weight: var(--step-wght) !important;
+  font-variation-settings: "wght" var(--step-wght) !important; /* Pretendard Variable 대응 */
+  color: var(--text) !important;
+}
+

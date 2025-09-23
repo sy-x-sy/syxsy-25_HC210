@@ -1,0 +1,141 @@
+:root {
+  --primary-color: #f8de9a;
+  --text-color: #212121;
+  --secondary-text-color: #a8a8a8;
+  --bg-color-light: #f5f5f5;
+  --card-bg-color: #fff9e6;
+  --pretendard-font: 'Pretendard', sans-serif;
+}
+
+body {
+  font-family: var(--pretendard-font);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.notification-container {
+  width: 100%;
+  max-width: 450px;
+  min-height: 100vh;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 10px;
+  position: relative;
+  background-color: var(--primary-color);
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 주요 컨텐츠 박스 */
+.content-box {
+  flex-grow: 1;
+  background-color: var(--card-bg-color);
+  border-radius: 40px;
+  padding: 30px 0;
+  margin: 0 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 설정 목록 */
+.settings-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 토글 스위치 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

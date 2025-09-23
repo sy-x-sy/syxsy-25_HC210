@@ -1,0 +1,154 @@
+/* =========================================================
+   반려견 프로필 편집 – 0812 정리본 (전체 교체)
+   ========================================================= */
+
+/* 폰트 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+/* 테마 변수 */
+:root{
+  --bg:#F8DE9A;        /* 화면 배경 */
+  --panel:#FFF5DC;     /* 카드 배경 */
+  --pill:#EFE6CF;      /* 입력 필드 배경 */
+  --accent:#F8DE9A;    /* 버튼 색 */
+  --text:#26382c;      /* 본문 */
+  --muted:#60705f;     /* 보조 */
+  --screen:430px;
+  --r-2xl:28px;
+}
+
+/* 리셋/기본 */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Pretendard Variable","Pretendard",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+  display:flex; justify-content:center; align-items:flex-start;
+}
+
+/* ===== 레이아웃 ===== */
+.element-a-edit-profile{ width:100%; display:flex; justify-content:center; }
+.element-a-edit-profile .div{
+  width:100%; max-width:var(--screen); min-height:100vh;
+  background:var(--bg); position:relative;
+}
+
+/* ----- 상단 앱바 ----- */
+.frame{
+  height:88px; display:flex; align-items:center; justify-content:center;
+  position:relative; background:var(--bg);
+}
+.text-wrapper{ margin:0; font-size:18px; font-weight:800; }
+
+/* 뒤로가기 */
+.bring-back{
+  position:absolute; left:16px; top:16px;
+  border:0; background:transparent; padding:6px; cursor:pointer;
+}
+.vector{ width:18px; height:18px; filter:brightness(0) }
+
+/* ----- 카드(라운드 상단) ----- */
+.profile-form{
+  background:var(--panel);
+  border-top-left-radius:var(--r-2xl); border-top-right-radius:var(--r-2xl);
+  padding:48px 20px 40px;
+  display:grid; grid-template-columns:1fr; gap:18px;
+  min-height:calc(100vh - 88px);
+}
+
+/* ===== 아바타 영역 ===== */
+/* 실제 사용하는 구조: .avatar-wrap > (.avatar.ph + img.avatar.img + input[type=file]) */
+.avatar-wrap{
+  position:relative;
+  margin-top:-56px;                     /* 상단 경계에 절반 걸치기 */
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  z-index:1;
+}
+.avatar{
+  width:96px; height:96px; border-radius:50%;
+  border:4px solid #F4E9C8; box-shadow:0 1px 0 rgba(0,0,0,.05);
+  background:#fff; cursor:pointer;      /* 클릭해 업로드 열리는 느낌 */
+}
+/* 플레이스홀더 / 실제 이미지 토글 */
+.avatar.ph{ background:#fff url("img/dog-face.svg") center/60% no-repeat; }
+.avatar.img{ display:none; object-fit:cover; }
+.avatar-wrap.has-photo .avatar.ph{ display:none; }
+.avatar-wrap.has-photo .avatar.img{ display:block; }
+
+/* 예전 자동생성된 .ellipse 절대배치 무효화 & 보호 */
+.ellipse{ position:static !important; }
+
+/* (요청) 헤더 등지에 떠있는 장식용 ellipse 이미지는 숨김 */
+.frame img[src*="ellipse"], .frame [class*="ellipse"]{ display:none !important; }
+
+/* 아바타 아래 이름 */
+.text-wrapper-7{
+  font-size:18px; font-weight:800; text-align:center;
+  margin:6px 0 0 0; color:var(--text);
+}
+
+/* ===== 섹션 타이틀 ===== */
+.frame-9, .text-wrapper-4{ display:none !important; } /* 예전 중복 제목 숨김 */
+.text-wrapper-2, .text-wrapper-3{ color:var(--muted); }
+
+/* 큰 제목과 입력 폼 사이 간격 증가 */
+.frame{ margin-bottom:0; }
+.frame + .profile-form::before{
+  content:"반려견 프로필 편집";
+  display:block; font-size:18px; font-weight:900; color:var(--text);
+  margin:14px 0 20px 0;
+}
+
+/* ===== 입력 필드 ===== */
+label{ font-size:14px; font-weight:800; color:var(--text); }
+input[type="text"], input[type="date"], select{
+  width:100%; background:var(--pill); border:0; border-radius:999px;
+  padding:12px 16px; font-size:14px; color:var(--text); outline:none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{ opacity:1; cursor:pointer }
+
+/* ===== 버튼 ===== */
+.element-a-edit-profile .log-in-dark-mode{
+  position:static !important; left:auto !important; top:auto !important;
+  width:100% !important; height:44px !important; display:block !important;
+  margin:24px 0 8px !important;
+  background:var(--accent) !important; color:#26382C !important;
+  border:0; border-radius:999px; font-weight:900; cursor:pointer;
+}
+.log-in{ position:static !important; width:auto !important; height:auto !important;
+  display:block; text-align:center; line-height:1; margin:0; }
+.element-a-edit-profile .log-in-dark-mode:hover{ filter:brightness(.98) }
+
+/* ===== 구형 자동생성 스타일 무효화 ===== */
+.element-a-edit-profile .overlap-group,
+.element-a-edit-profile .rectangle,
+.element-a-edit-profile .frame-2,
+.element-a-edit-profile .div-wrapper,
+.element-a-edit-profile .frame-3,
+.element-a-edit-profile .frame-4,
+.element-a-edit-profile .frame-5,
+.element-a-edit-profile .frame-6,
+.element-a-edit-profile .DD-MM-YY-wrapper,
+.element-a-edit-profile .frame-7,
+.element-a-edit-profile .frame-8{
+  position:static !important; width:auto !important; height:auto !important;
+  background:transparent !important; padding:0 !important; margin:0 !important;
+}
+
+/* ===== 접근성용 숨김 ===== */
+.visually-hidden{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); border:0;
+}
+
+/* ===== 더 이상 쓰지 않는/충돌 유발 규칙 정리 ===== */
+/* 카메라 아이콘 버튼은 사용하지 않으므로 항상 숨김 (아바타 자체 클릭으로 업로드) */
+.cam, .icon-cam{ display:none !important; }
+/* 오래된 .profile-image-container 기반 숨김 규칙 제거 (혼란 방지) */
+/* 필요 시 다시 추가하세요 */
+
+/* ===== 반응형 미세 보정 ===== */
+@media (max-width:360px){
+  .profile-form{ padding-left:16px; padding-right:16px }
+  .avatar-wrap{ margin-top:-50px }
+}

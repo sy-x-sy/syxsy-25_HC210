@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>반려견 프로필 생성</title>
+  </head>
+  <body>
+    <main class="element-a-create-profile">
+      <div class="div">
+        <h1 class="text-wrapper-7">반려견 프로필 생성</h1>
+        <form class="overlap-group">
+          <div class="form-group">
+            <label for="pet-name" class="text-wrapper-3">반려견 이름</label>
+            <div class="div-wrapper">
+              <input type="text" id="pet-name" class="text-wrapper" placeholder="쏘세지" aria-label="반려견 이름" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pet-birthdate" class="text-wrapper-4">반려견 생년월일</label>
+            <div class="overlap-2">
+              <input
+                type="text"
+                id="pet-birthdate"
+                class="text-wrapper"
+                placeholder="DD/ MM/ YY"
+                aria-label="반려견 생년월일"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pet-size" class="p">반려견 크기 (대형 중형 소형)</label>
+            <div class="overlap-3">
+              <select id="pet-size" class="text-wrapper-2" aria-label="반려견 크기">
+                <option value="small" selected>소형</option>
+                <option value="medium">중형</option>
+                <option value="large">대형</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pet-gender" class="text-wrapper-5">반려견 성별</label>
+            <div class="overlap-4">
+              <select id="pet-gender" class="text-wrapper-2" aria-label="반려견 성별">
+                <option value="male" selected>남</option>
+                <option value="female">여</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pet-photo" class="text-wrapper-6">프로필 사진</label>
+            <div class="overlap" role="button" tabindex="0" aria-label="프로필 사진 업로드">
+              <img class="lens" src="img/lens-1.png" alt="카메라 아이콘" />
+              <input
+                type="file"
+                id="pet-photo"
+                accept="image/*"
+                class="visually-hidden"
+                aria-label="프로필 사진 업로드"
+              />
+            </div>
+          </div>
+          <button type="submit" class="log-in-dark-mode">
+            <span class="log-in">등록</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

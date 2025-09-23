@@ -1,0 +1,106 @@
+:root {
+  --primary-color: #f8de9a; /* 연한 주황색 */
+  --text-color: #212121;
+  --secondary-text-color: #a8a8a8;
+  --bg-color-light: #f8de9a;
+  --card-bg-color: #fff9e6; /* 연한 노란색/베이지색 */
+  --menu-icon-color: #212121; /* 검정색 아이콘 색상 */
+  --pretendard-font: 'Pretendard', sans-serif;
+}
+
+body {
+  font-family: var(--pretendard-font);
+  background-color: var(--bg-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.settings-container {
+  width: 100%;
+  max-width: 450px;
+  min-height: 100vh;
+  background-color: var(--bg-color-light);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 10px;
+  position: relative;
+  background-color: var(--bg-color-light);
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 주요 컨텐츠 박스 */
+.content-box {
+  flex-grow: 1;
+  background-color: var(--card-bg-color);
+  border-radius: 40px;
+  padding: 30px 0;
+  margin: 20px 10px 0; /* 수정: 상단 여백을 20px로 조정 */
+}
+
+/* 설정 메뉴 리스트 */
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.menu-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8de9a;
+  border-radius: 12px;
+  margin-right: 15px;
+}
+
+.menu-text {
+  flex-grow: 1;
+}
+
+.arrow-icon {
+  width: 24px;
+  height: 24px;
+}

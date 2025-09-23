@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>계정 편집</title>
+
+  <!-- (선택) 공통 폰트 -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#F8DE9A;         /* 화면 배경 */
+      --panel:#FFF5DC;      /* 카드 배경 */
+      --pill:#EFE6CF;       /* 입력 필드 배경 */
+      --accent:#F8DE9A;     /* 버튼 색 */
+      --text:#26382c;       /* 본문 색 */
+      --muted:#6B7B6F;      /* 부제/보조 */
+      --screen:430px;
+      --r-2xl:28px;
+    }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:"Pretendard Variable","Pretendard",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+      display:flex; justify-content:center; align-items:flex-start;
+    }
+
+    /* 화면 래퍼 */
+    .screen{ width:100%; max-width:var(--screen); min-height:100vh }
+
+    /* 상단 앱바 */
+    .appbar{
+      height:88px; display:flex; align-items:center; justify-content:center;
+      position:relative; padding:0 16px; background:var(--bg);
+    }
+    .appbar h1{ margin:0; font-size:18px; font-weight:900; }
+    .back{
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      border:0; background:transparent; padding:8px; cursor:pointer;
+    }
+    .back img{ width:20px; height:20px; filter:brightness(.15); opacity:.9 }
+
+    /* 카드(둥근 상단) */
+    .card{
+      position:relative;
+      background:var(--panel);
+      border-top-left-radius:var(--r-2xl);
+      border-top-right-radius:var(--r-2xl);
+      padding:56px 20px 28px;            /* 아바타 공간 포함 */
+      min-height:calc(100vh - 88px);
+    }
+
+    /* 아바타 */
+    .avatar-wrap{
+      position:relative;
+      margin-top:-56px;                  /* 상단 경계에 절반 걸치기 */
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      z-index:3;                         /* 헤더보다 위 */
+    }
+    /* 플레이스홀더 + 실제 이미지 2겹 구조 */
+    .avatar{ width:96px; height:96px; border-radius:50%; border:4px solid #F4E9C8; box-shadow:0 1px 0 rgba(0,0,0,.05); }
+    .avatar.ph{ background:#fff url("img/user-placeholder.svg") center/60% no-repeat; cursor:pointer; }
+    .avatar.img{ display:none; object-fit:cover; background:#fff; cursor:pointer; }
+    .avatar-wrap.has-photo .avatar.ph{ display:none; }
+    .avatar-wrap.has-photo .avatar.img{ display:block; }
+
+    /* 표시용 이름(아바타 아래) */
+    .display-name{ margin:8px 0 0; text-align:center; font-weight:900; font-size:18px; }
+
+    /* 섹션 타이틀 */
+    .section-title{ margin:18px 0 4px; font-weight:900; font-size:18px }
+
+    /* 폼 */
+    .form{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:8px; }
+    .field{ display:grid; gap:8px; }
+    .field label{ font-size:14px; font-weight:800; }
+    .pill{
+      width:100%; border:0; outline:none; background:var(--pill);
+      border-radius:999px; padding:12px 16px; font-size:14px; color:var(--text);
+    }
+
+    /* 버튼 */
+    .submit{
+      margin-top:16px; width:100%; height:44px; border:0; border-radius:999px;
+      background:var(--accent); color:#26382C; font-weight:900; cursor:pointer;
+    }
+    .submit:active{ transform:translateY(1px) }
+
+    /* 접근 가능한 시각적 숨김 */
+    .visually-hidden{
+      position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); border:0;
+    }
+
+    @media (max-width:360px){
+      .card{ padding-left:16px; padding-right:16px }
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="appbar">
+      <button class="back" type="button" aria-label="뒤로 가기">
+        <img src="../vaccine/vacc/back.svg" alt="">
+      </button>
+      <h1>계정 편집</h1>
+    </header>
+
+    <section class="card" role="main" aria-labelledby="title">
+      <div class="avatar-wrap" id="avatarWrap">
+        <div class="avatar ph" id="avatarPh" aria-hidden="true"></div>
+        <img id="avatarImg" class="avatar img" alt="프로필 사진">
+        <input id="avatarFile" type="file" accept="image/*" class="visually-hidden">
+      </div>
+
+      <h2 id="title" class="display-name" aria-live="polite">John Smith</h2>
+
+      <h3 class="section-title">계정 편집</h3>
+
+      <form class="form" id="accountForm" autocomplete="on">
+        <div class="field">
+          <label for="nick">닉네임</label>
+          <input id="nick" class="pill" type="text" placeholder="John Smith" value="John Smith" required>
+        </div>
+
+        <div class="field">
+          <label for="phone">전화번호</label>
+          <input id="phone" class="pill" type="tel" placeholder="+44 555 5555 55" inputmode="tel">
+        </div>
+
+        <div class="field">
+          <label for="email">이메일 주소</label>
+          <input id="email" class="pill" type="email" placeholder="example@example.com" autocomplete="email">
+        </div>
+
+        <button class="submit" type="submit">Update Account</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // 뒤로가기
+    document.querySelector('.back')?.addEventListener('click', () => {
+      if (history.length > 1) history.back();
+      else location.href = '../home/home.html';
+    });
+
+    // 요소
+    const wrap   = document.getElementById('avatarWrap');
+    const ph     = document.getElementById('avatarPh');
+    const img    = document.getElementById('avatarImg');
+    const fileEl = document.getElementById('avatarFile');
+
+    const nameEl = document.getElementById('nick');
+    const nameView = document.querySelector('.display-name');
+
+    // 동그라미 클릭 → 파일 선택
+    const openPicker = () => fileEl.click();
+    ph.addEventListener('click', openPicker);
+    img.addEventListener('click', openPicker);
+
+    // 파일 선택 → 미리보기 표시
+    fileEl.addEventListener('change', () => {
+      const f = fileEl.files && fileEl.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = e => {
+        img.src = e.target.result;
+        wrap.classList.add('has-photo');
+        persist();
+      };
+      r.readAsDataURL(f);
+    });
+
+    // localStorage 키
+    const LS_KEY = 'accountProfile';
+
+    // 저장된 값 복원
+    (function hydrate(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return;
+        const p = JSON.parse(raw);
+        if(p.photo){ img.src = p.photo; wrap.classList.add('has-photo'); }
+        if(p.nick)  nameEl.value = p.nick;
+        if(p.phone) document.getElementById('phone').value = p.phone;
+        if(p.email) document.getElementById('email').value = p.email;
+      }catch{}
+      nameView.textContent = nameEl.value || 'User';
+    })();
+
+    // 닉네임 입력 시 상단 이름 동기화
+    nameEl.addEventListener('input', e => {
+      nameView.textContent = e.target.value || 'User';
+    });
+
+    // 현재 상태 저장
+    function persist(){
+      const data = {
+        nick:  document.getElementById('nick').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        photo: img.src
+      };
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+
+    // 제출 → 저장 → (원하면 이동)
+    document.getElementById('accountForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      persist();
+      alert('계정 정보가 저장되었습니다.');
+      // location.href = '../profile/profile.html';
+    });
+  </script>
+</body>
+</html>

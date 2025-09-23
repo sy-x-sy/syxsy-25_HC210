@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>반려견 프로필 편집</title>
+
+  <!-- Pretendard -->
+  <link href="pet.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#F8DE9A;         /* 화면 배경 */
+      --panel:#FFF5DC;      /* 카드 배경 */
+      --pill:#EFE6CF;       /* 입력 필드 배경 */
+      --accent:#E7C46E;     /* 버튼 색 */
+      --text:#26382c;       /* 본문 색 */
+      --muted:#6B7B6F;      /* 부제/보조 */
+      --screen:430px;
+      --r-2xl:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      display:flex; justify-content:center; align-items:flex-start;
+      background:var(--bg); color:var(--text);
+      font-family:"Pretendard Variable","Pretendard",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+    }
+
+    /* 화면 래퍼 */
+    .screen{width:100%; max-width:var(--screen); min-height:100vh}
+
+    /* 상단 앱바 */
+    .appbar{
+      height:88px; display:flex; align-items:center; justify-content:center;
+      position:relative; padding:0 16px;
+      background:var(--bg);
+    }
+    .appbar h1{margin:0; font-size:18px; font-weight:800;}
+    .back{
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      border:0; background:transparent; padding:8px; cursor:pointer;
+    }
+    .back img{width:20px; height:20px; filter:brightness(0.1); opacity:.9}
+
+    /* 카드(둥근 상단) */
+    .card{
+      background:var(--panel);
+      border-top-left-radius:var(--r-2xl);
+      border-top-right-radius:var(--r-2xl);
+      padding:48px 20px 28px;
+      min-height:calc(100vh - 88px);
+    }
+
+    /* 아바타 */
+    .avatar-wrap{
+      margin-top:-68px;          /* 카드 윗둥과 겹치도록 */
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+    }
+    .avatar{
+      width:96px; height:96px; border-radius:50%; object-fit:cover;
+      background:#fff; border:4px solid #F4E9C8; box-shadow:0 1px 0 rgba(0,0,0,.05);
+    }
+    .cam{
+      border:0; background:#fff; border-radius:999px; padding:6px 7px;
+      box-shadow:0 1px 0 rgba(0,0,0,.06); cursor:pointer;
+    }
+    .cam img{width:18px; height:18px; filter:brightness(.2)}
+
+    /* 표시용 이름(아바타 아래) */
+    .display-name{
+      margin:8px 0 0; text-align:center; font-weight:800; font-size:18px;
+    }
+
+    /* 섹션 타이틀 */
+    .section-title{margin:18px 0 4px; font-weight:900; font-size:18px}
+
+    /* 폼 그리드 */
+    .form{display:grid; grid-template-columns:1fr; gap:14px; margin-top:8px;}
+
+    .field{display:grid; gap:8px;}
+    .field label{font-size:14px; font-weight:800;}
+    .pill{
+      width:100%; border:0; outline:none;
+      background:var(--pill); border-radius:999px;
+      padding:12px 16px; font-size:14px; color:var(--text);
+    }
+    input[type="date"].pill{color:var(--text)}
+
+    /* 버튼 */
+    .submit{
+      margin-top:12px;
+      width:100%; height:44px;
+      border:0; border-radius:999px;
+      background:var(--accent); color:#223;
+      font-weight:900; cursor:pointer;
+    }
+    .submit:active{transform:translateY(1px)}
+
+    /* 작은 화면 여백 보정 */
+    @media (max-width:360px){ .card{padding-left:16px; padding-right:16px} }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="appbar">
+      <button class="back" type="button" aria-label="뒤로 가기">
+        <img src="../반려동물/vaccine/vacc/back.svg" alt="">
+      </button>
+      <h1>반려견 프로필 편집</h1>
+    </header>
+
+    <section class="card" role="main" aria-labelledby="title">
+      <div class="avatar-wrap">
+  <div class="avatar ph" aria-hidden="true"></div>
+  <img id="avatar" class="avatar img" alt="반려견 프로필 사진">
+
+  <!-- ✅ 파일 입력 (시각적으로 숨김) -->
+  <input id="avatarFile" type="file" accept="image/*" class="visually-hidden">  
+</div>
+
+
+
+      <h2 id="title" class="display-name">쏘세지</h2>
+
+      <h3 class="section-title">반려견 프로필 편집</h3>
+
+      <form class="form" id="profileForm">
+        <div class="field">
+          <label for="petName">반려견 이름</label>
+          <input id="petName" class="pill" type="text" placeholder="이름 입력" value="쏘세지" required>
+        </div>
+
+        <div class="field">
+          <label for="petBirth">반려견 생년월일</label>
+          <input id="petBirth" class="pill" type="date" placeholder="DD/ MM/ YY" required>
+        </div>
+
+        <div class="field">
+          <label for="petSize">반려견 크기 (대형 중형 소형)</label>
+          <select id="petSize" class="pill" required>
+            <option>소형</option>
+            <option>중형</option>
+            <option>대형</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="petGender">반려견 성별</label>
+          <select id="petGender" class="pill" required>
+            <option>남</option>
+            <option>여</option>
+          </select>
+        </div>
+
+        <button class="submit" type="submit">프로필 업데이트</button>
+      </form>
+    </section>
+  </main>
+
+<script>
+  // 뒤로가기
+  document.querySelector('.back')?.addEventListener('click', () => {
+    if (history.length > 1) history.back();
+    else location.href = '../home/home.html';
+  });
+
+  // 아바타 요소들
+const avatarWrap = document.querySelector('.avatar-wrap');
+const avatarImg  = document.getElementById('avatar');
+const fileInput  = document.getElementById('avatarFile');
+
+fileInput.addEventListener('change', () => {
+  const f = fileInput.files && fileInput.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    avatarImg.src = e.target.result;
+    avatarWrap.classList.add('has-photo');
+    persist();
+  };
+  r.readAsDataURL(f);
+});
+
+
+
+  // 저장 & 홈 반영용 localStorage 키
+  const LS_KEY = 'petProfile';
+
+  // 저장된 값으로 폼/아바타 채우기
+  (function hydrate(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      if(!raw) return;
+      const p = JSON.parse(raw);
+      if(p.photo){
+        avatarImg.src = p.photo;
+        avatarWrap.classList.add('has-photo'); // ▶ 이미지 보이도록
+      }
+      if(p.name)  document.getElementById('petName').value = p.name;
+      if(p.birth) document.getElementById('petBirth').value = p.birth;
+      if(p.size)  document.getElementById('petSize').value = p.size;
+      if(p.gender)document.getElementById('petGender').value = p.gender;
+
+      document.querySelector('.display-name').textContent =
+        document.getElementById('petName').value || '반려견';
+    }catch{}
+  })();
+
+  // 이름 입력 시 상단 표시 이름 동기화
+  document.getElementById('petName').addEventListener('input', (e) => {
+    document.querySelector('.display-name').textContent = e.target.value || '반려견';
+  });
+
+  // 현재 폼 상태 저장
+  function persist(){
+    const data = {
+      name:   document.getElementById('petName').value.trim(),
+      birth:  document.getElementById('petBirth').value,
+      size:   document.getElementById('petSize').value,
+      gender: document.getElementById('petGender').value,
+      photo:  avatarImg.src
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+  }
+
+  // 제출 → 저장 → 홈 이동
+  document.getElementById('profileForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    persist();
+    location.href = '../_3_home/home.html';
+  });
+  // 아바타(큰 원)를 클릭해도 파일창 열리도록
+document.querySelector('.avatar.ph')?.addEventListener('click', () => fileInput.click());
+document.getElementById('avatar')?.addEventListener('click', () => fileInput.click());
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>프로필 - John Smith</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <main class="element-a-profile">
+      <div class="div">
+        <section class="overlap-group">
+          <img class="rectangle" src="img/rectangle-148.svg" alt="" role="presentation" />
+          <h1 class="text-wrapper">John Smith</h1>
+          <img class="ellipse" src="img/ellipse-192.png" alt="John Smith 프로필 사진" />
+          <input id="avatarFile" type="file" accept="image/*" hidden />
+          <nav class="frame" role="navigation" aria-label="프로필 메뉴">
+            <button id="btnEditProfile" class="frame-2" type="button" aria-label="계정 편집">
+              <div class="icon-profile" aria-hidden="true">
+                <img class="vector" src="profile.svg" alt="" />
+              </div>
+              <span class="text-wrapper-2">계정 편집</span>
+            </button>
+            <button id="btnEditDogProfile" class="frame-2" type="button" aria-label="반려견 프로필 편집">
+              <div class="vector-wrapper" aria-hidden="true">
+                <img class="vector" src="profile.svg" alt="" />
+              </div>
+              <span class="text-wrapper-2">반려견 프로필 편집</span>
+            </button>
+            <button id="btnSettings" class="frame-2" type="button" aria-label="설정">
+              <div class="icon-setting" aria-hidden="true">
+                <img class="img" src="set.svg" alt="" />
+              </div>
+              <span class="text-wrapper-3">설정</span>
+            </button>
+            <div class="frame-wrapper">
+              <button id="btnLogout" class="frame-3" type="button" aria-label="로그아웃">
+                <div class="icon-logout" aria-hidden="true">
+                  <img class="vector-2" src="out.png" alt="" />
+                </div>
+                <span class="text-wrapper-4">로그아웃</span>
+              </button>
+            </div>
+          </nav>
+        </section>
+        <header class="div-wrapper">
+          <h2 class="text-wrapper-5">프로필</h2>
+        </header>
+        <button id="btnBack" class="bring-back" type="button" aria-label="뒤로 가기">
+          <img class="vector-3" src="../_14_vaccine/vacc/back.svg" alt="" />
+        </button>
+      </div>
+    </main>
+    <script>
+      // 프로필 사진 미리보기 스크립트 (기존 코드)
+      const avatarEl = document.querySelector('.ellipse');
+      const fileInput = document.getElementById('avatarFile');
+      avatarEl?.addEventListener('click', () => fileInput?.click());
+      fileInput?.addEventListener('change', () => {
+        const f = fileInput.files && fileInput.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          avatarEl.src = e.target.result;
+          avatarEl.style.background = 'none';
+        };
+        r.readAsDataURL(f);
+      });
+
+      // --- 화면 이동 스크립트 추가 ---
+      const btnEditProfile = document.getElementById('btnEditProfile');
+      const btnEditDogProfile = document.getElementById('btnEditDogProfile');
+      const btnSettings = document.getElementById('btnSettings');
+      const btnLogout = document.getElementById('btnLogout');
+      const btnBack = document.getElementById('btnBack');
+
+      // '계정 편집' 버튼 클릭 시
+      btnEditProfile?.addEventListener('click', () => {
+        window.location.href = '../_11_profile_edit/account.html'; // 9.5.1 화면으로 이동
+      });
+
+      // '반려견 프로필 편집' 버튼 클릭 시
+      btnEditDogProfile?.addEventListener('click', () => {
+        window.location.href = '../_12_pet_edit/pet.html'; // 9.5.2_A 화면으로 이동
+      });
+
+      // '설정' 버튼 클릭 시
+      btnSettings?.addEventListener('click', () => {
+        window.location.href = '../_16_notice/notice_set.html'; // 9.5.2_D 화면으로 이동
+      });
+
+      // '뒤로 가기' 버튼 클릭 시
+      btnBack?.addEventListener('click', () => {
+        window.history.back(); // 이전 페이지로 돌아가기
+      });
+
+      // '로그아웃' 버튼 클릭 시 (예시)
+      btnLogout?.addEventListener('click', () => {
+        // 실제 로그아웃 로직 (예: 세션 삭제 후 로그인 페이지로 리디렉션)
+        alert('로그아웃 되었습니다.');
+        window.location.href = '../_1_login/login.html'; // 로그인 화면으로 이동
+      });
+    </script>
+  </body>
+</html>

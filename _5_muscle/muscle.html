@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>실시간 피로도 분석</title>
+  </head>
+  <body>
+    <main class="element-a-quickly-analysis">
+      <section class="fatigue-analysis-container">
+        <header class="analysis-header">
+          <button class="back-button" aria-label="뒤로 가기"
+              onclick="if (history.length > 1) history.back(); else location.href='../home/home.html';">
+            <img class="back-icon" src="back.svg" alt="뒤로 가기" />
+          </button>
+          <h1 class="analysis-title">실시간 피로도 분석</h1>
+        </header>
+        <section class="current-fatigue-status">
+          <div class="status-card">
+            <div class="progress-circle-container">
+              <img class="progress-circle-bg" src="img/ellipse-193.png" alt="진행 원 배경" />
+              <img class="progress-circle-fill" src="img/ellipse-194.png" alt="진행 원 채움" />
+              <span class="progress-percentage">30%</span>
+            </div>
+            <div class="status-details">
+              <p>피로도: 30%<br />상태: 양호</p>
+            </div>
+          </div>
+        </section>
+        <section class="fatigue-details">
+          <div class="chart-section">
+            <h2 class="chart-title">최근 피로도 변화</h2>
+            <div class="chart-container">
+              <div class="chart-grid">
+                <div class="chart-y-axis">
+                  <span class="y-label">15k</span>
+                  <span class="y-label">10k</span>
+                  <span class="y-label">5k</span>
+                  <span class="y-label">1k</span>
+                </div>
+                <div class="chart-content">
+                  <img class="grid-line" src="Vector 5.svg" alt="그리드 라인" />
+                  <img class="grid-line" src="Vector 4.svg" alt="그리드 라인" />
+                  <img class="grid-line" src="Vector 3.svg" alt="그리드 라인" />
+                  <img class="grid-line" src="Vector 2.svg" alt="그리드 라인" />
+                  <img class="chart-data" src="img/frame-92.svg" alt="피로도 차트 데이터" />
+                  <img class="x-axis" src="Vector 1.svg" alt="x축" />
+                </div>
+                <div class="chart-x-axis">
+                  <span class="x-label">12:00</span>
+                  <span class="x-label">13:00</span>
+                  <span class="x-label">14:00</span>
+                  <span class="x-label">15:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="update-info">근육 피로도 (업데이트 주기: 1시간)</h2>
+          <div class="timeline">
+            <div class="timeline-item high-fatigue">
+              <time class="time-label">13:00</time>
+              <p class="status-message">피로도 : 70%&nbsp;&nbsp;&nbsp;&nbsp;⚠️ 피로도 급상승! 휴식이 필요해요.</p>
+            </div>
+            <div class="timeline-item normal-fatigue">
+              <time class="time-label">14:00</time>
+              <p class="status-message">피로도 : 30%&nbsp;&nbsp;&nbsp;&nbsp; 양호한 상태를 유지 중이에요.</p>
+            </div>
+            <div class="timeline-item medium-fatigue">
+              <time class="time-label">15:00</time>
+              <p class="status-message">피로도 : 50%&nbsp;&nbsp;&nbsp;&nbsp;⚠️ 피로도 상승 중, 주의가 필요해요.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

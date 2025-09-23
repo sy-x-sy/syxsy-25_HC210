@@ -1,0 +1,313 @@
+.element-a-login {
+  background-color: #fdfaf0;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+}
+.element-a-login .div {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 932px;
+  position: relative; 
+}
+
+.element-a-login .overlap-group {
+  position: absolute;
+  width: 430px;
+  height: 742px;
+  top: 190px;
+  left: 0;
+  background-image: url(./img/base-shape.svg);
+  background-size: 100% 100%;
+}
+
+.element-a-login .log-in-dark-mode {
+  position: absolute;
+  width: 207px;
+  height: 45px;
+  top: 373px;
+  left: 111px;
+  background-color: var(--main-green);
+  border-radius: 30px;
+}
+
+.element-a-login .log-in {
+  position: absolute;
+  width: 220px;
+  height: 22px;
+  top: 10px;
+  left: -7px;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--titlle-font-size);
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  line-height: var(--titlle-line-height);
+  font-style: var(--titlle-font-style);
+}
+
+.element-a-login .log-in-wrapper {
+  position: absolute;
+  width: 207px;
+  height: 45px;
+  top: 464px;
+  left: 111px;
+  background-color: var(--light-green);
+  border-radius: 30px;
+}
+
+.element-a-login .text-wrapper {
+  position: absolute;
+  width: 208px;
+  height: 22px;
+  top: 10px;
+  left: -1px;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--dark-mode-green-black);
+  font-size: var(--titlle-font-size);
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  line-height: var(--titlle-line-height);
+  font-style: var(--titlle-font-style);
+}
+
+.element-a-login .text-wrapper-2 {
+  position: absolute;
+  width: 147px;
+  height: 13px;
+  top: 433px;
+  left: 141px;
+  font-family: "League Spartan-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-black);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.element-a-login .overlap {
+  position: absolute;
+  width: 356px;
+  height: 41px;
+  top: 145px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-login .text-wrapper-3 {
+  position: absolute;
+  width: 293px;
+  height: 14px;
+  top: 12px;
+  left: 34px;
+  opacity: 0.45;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--letters-and-icons);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+
+.element-a-login .div-wrapper {
+  position: absolute;
+  width: 356px;
+  height: 41px;
+  top: 235px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-login .text-wrapper-4 {
+  position: absolute;
+  width: 293px;
+  height: 14px;
+  top: 14px;
+  left: 34px;
+  opacity: 0.45;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 12px;
+  letter-spacing: 8.40px;
+  line-height: 14px;
+}
+
+.element-a-login .text-wrapper-5 {
+  position: absolute;
+  height: 23px;
+  top: 113px;
+  left: 53px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--subtitle-font-size);
+  letter-spacing: var(--subtitle-letter-spacing);
+  line-height: var(--subtitle-line-height);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-login .text-wrapper-6 {
+  position: absolute;
+  height: 23px;
+  top: 208px;
+  left: 53px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--subtitle-font-size);
+  letter-spacing: var(--subtitle-letter-spacing);
+  line-height: var(--subtitle-line-height);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-login .text-wrapper-7 {
+  position: absolute;
+  height: 22px;
+  top: 99px;
+  left: 141px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #000000bd;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.element-a-login {
+  background-color: #f8df9d;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 132vh;
+  height: 100%;
+}
+
+.login-container {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.login-form-container {
+  position: absolute;
+  width: 430px;
+  height: 742px;
+  top: 190px;
+  left: 0;
+  background-image: url(Base\ Shape.svg);
+  background-size: 100% 100%;
+  padding: 100px 37px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  display: block;
+  height: 23px;
+  margin-bottom: 9px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--subtitle-font-size);
+  letter-spacing: var(--subtitle-letter-spacing);
+  line-height: var(--subtitle-line-height);
+  font-style: var(--subtitle-font-style);
+}
+
+.form-input {
+  width: 100%;
+  height: 41px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+  border: none;
+  padding: 12px 34px;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--letters-and-icons);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 14px;
+  opacity: 0.45;
+}
+
+input[type="password"] {
+  font-size: 12px;
+  letter-spacing: 8.40px;
+  color: #052224;
+}
+
+.btn {
+  width: 207px;
+  height: 45px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  font-size: var(--titlle-font-size);
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  line-height: var(--titlle-line-height);
+  font-style: var(--titlle-font-style);
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  background-color: var(--main-green);
+  color: var(--letters-and-icons);
+}
+
+.btn-secondary {
+  background-color: var(--light-green);
+  color: var(--dark-mode-green-black);
+  margin-top: 10px;
+}
+
+.forgot-password {
+  font-family: "League Spartan-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--dark-mode-green-black);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-bottom: 16px;
+}
+
+.welcome-heading {
+  position: absolute;
+  height: 22px;
+  top: 99px;
+  left: 141px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #000000bd;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+/* Original CSS code should be injected here */

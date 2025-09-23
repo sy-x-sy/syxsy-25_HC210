@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="vacc_input_globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="vacc_input.css" />
+    <title>예방접종 기록</title>
+    <style>
+      /* 캘린더용 숨겨진 date input */
+      .hidden-date {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="element-b-transaction">
+      <section class="vaccination-record-container">
+        <header class="vaccination-header">
+          <button class="back-button" onclick="location.href='vacc.html'" aria-label="뒤로 가기">
+            <img src="vacc/back.svg" alt="뒤로 가기" class="back-icon" />
+          </button>
+          <h1 class="page-title">예방접종 기록</h1>
+        </header>
+
+        <form class="vaccination-form">
+          <div class="form-group">
+            <label for="vaccination-name" class="form-label">예방접종명</label>
+            <input type="text" id="vaccination-name" class="form-input" placeholder="광견병" required />
+          </div>
+
+          <div class="form-group">
+            <label for="hospital-name" class="form-label">병원명</label>
+            <input type="text" id="hospital-name" class="form-input" placeholder="SoH" required />
+          </div>
+
+          <div class="form-group">
+            <label for="price" class="form-label">가격</label>
+            <input type="number" id="price" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="vaccination-date" class="form-label">접종일자</label>
+            <div class="date-input-container">
+              <input type="text" id="vaccination-date" class="form-input date-input" placeholder="DD / MM / YY" readonly required />
+              <input type="date" id="hidden-date-picker" class="hidden-date" />
+              <button type="button" class="calendar-button" aria-label="달력 열기">
+                <img src="vacc/Calender.svg" alt="달력" class="calendar-icon" />
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-button">
+            <span class="submit-text">추가</span>
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const calendarBtn = document.querySelector(".calendar-button");
+      const visibleDateInput = document.getElementById("vaccination-date");
+      const hiddenDateInput = document.getElementById("hidden-date-picker");
+
+      calendarBtn.addEventListener("click", () => {
+        if (hiddenDateInput.showPicker) {
+          hiddenDateInput.showPicker();
+        } else {
+          hiddenDateInput.click();
+        }
+      });
+
+      hiddenDateInput.addEventListener("change", () => {
+        const selected = hiddenDateInput.value;
+        if (selected) {
+          const [year, month, day] = selected.split("-");
+          visibleDateInput.value = `${day} / ${month} / ${year.slice(2)}`;
+        }
+      });
+
+      // ✅ 추가 기능: localStorage 저장 후 이동
+      document.querySelector(".vaccination-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("vaccination-name").value;
+        const hospital = document.getElementById("hospital-name").value;
+        const price = document.getElementById("price").value;
+        const displayDate = document.getElementById("vaccination-date").value;
+        const hiddenDate = document.getElementById("hidden-date-picker").value;
+        const month = new Date(hiddenDate).getMonth() + 1;
+
+        const record = { name, hospital, price, date: displayDate, month };
+
+        const stored = JSON.parse(localStorage.getItem("vaccinations") || "[]");
+        stored.push(record);
+        localStorage.setItem("vaccinations", JSON.stringify(stored));
+
+        window.location.href = "vacc.html";
+      });
+    </script>
+  </body>
+</html>

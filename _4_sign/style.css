@@ -1,0 +1,645 @@
+.element-a-notification {
+  background-color: #f8de9a;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.element-a-notification .div {
+  background-color: #f8de9a;
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.element-a-notification .overlap-group {
+  position: absolute;
+  width: 430px;
+  height: 818px;
+  top: 114px;
+  left: 0;
+  background-image: url(Rectangle\ 148.svg);
+  background-size: 100% 100%;
+}
+
+.element-a-notification .overlap {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 88px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .img {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  top: 7px;
+  left: 7px;
+}
+
+.element-a-notification .heart-pulse-wrapper {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 685px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .text-wrapper {
+  height: 23px;
+  top: 86px;
+  left: 88px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .p {
+  width: 255px;
+  height: 12px;
+  top: 112px;
+  left: 88px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .text-wrapper-2 {
+  height: 23px;
+  top: 195px;
+  left: 88px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .text-wrapper-3 {
+  width: 255px;
+  height: 12px;
+  top: 221px;
+  left: 88px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .text-wrapper-4 {
+  height: 23px;
+  top: 439px;
+  left: 88px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .text-wrapper-5 {
+  width: 255px;
+  height: 12px;
+  top: 465px;
+  left: 88px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .text-wrapper-6 {
+  height: 23px;
+  top: 574px;
+  left: 87px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .text-wrapper-7 {
+  width: 255px;
+  height: 12px;
+  top: 600px;
+  left: 87px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .text-wrapper-8 {
+  height: 23px;
+  top: 683px;
+  left: 88px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .text-wrapper-9 {
+  width: 255px;
+  height: 12px;
+  top: 709px;
+  left: 88px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .text-wrapper-10 {
+  height: 23px;
+  top: 331px;
+  left: 88px;
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  position: absolute;
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+}
+
+.element-a-notification .text-wrapper-11 {
+  width: 255px;
+  height: 12px;
+  top: 357px;
+  left: 88px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .line {
+  top: 171px;
+  position: absolute;
+  width: 357px;
+  height: 1px;
+  left: 37px;
+}
+
+.element-a-notification .text-wrapper-12 {
+  height: 13px;
+  top: 61px;
+  left: 44px;
+  font-family: var(--subtext-font-family);
+  font-weight: var(--subtext-font-weight);
+  color: #052224;
+  font-size: var(--subtext-font-size);
+  line-height: var(--subtext-line-height);
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: var(--subtext-letter-spacing);
+  font-style: var(--subtext-font-style);
+}
+
+.element-a-notification .line-2 {
+  top: 280px;
+  position: absolute;
+  width: 357px;
+  height: 1px;
+  left: 37px;
+}
+
+.element-a-notification .line-3 {
+  top: 415px;
+  position: absolute;
+  width: 357px;
+  height: 1px;
+  left: 37px;
+}
+
+.element-a-notification .text-wrapper-13 {
+  height: 13px;
+  top: 305px;
+  left: 44px;
+  font-family: var(--subtext-font-family);
+  font-weight: var(--subtext-font-weight);
+  color: #052224;
+  font-size: var(--subtext-font-size);
+  line-height: var(--subtext-line-height);
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: var(--subtext-letter-spacing);
+  font-style: var(--subtext-font-style);
+}
+
+.element-a-notification .line-4 {
+  top: 524px;
+  position: absolute;
+  width: 357px;
+  height: 1px;
+  left: 37px;
+}
+
+.element-a-notification .line-5 {
+  top: 659px;
+  position: absolute;
+  width: 357px;
+  height: 1px;
+  left: 37px;
+}
+
+.element-a-notification .text-wrapper-14 {
+  height: 13px;
+  top: 549px;
+  left: 44px;
+  font-family: var(--subtext-font-family);
+  font-weight: var(--subtext-font-weight);
+  color: #052224;
+  font-size: var(--subtext-font-size);
+  line-height: var(--subtext-line-height);
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: var(--subtext-letter-spacing);
+  font-style: var(--subtext-font-style);
+}
+
+.element-a-notification .text-wrapper-15 {
+  position: absolute;
+  height: 15px;
+  top: 629px;
+  left: 305px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .text-wrapper-16 {
+  top: 740px;
+  left: 306px;
+  position: absolute;
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .text-wrapper-17 {
+  top: 496px;
+  left: 305px;
+  position: absolute;
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .text-wrapper-18 {
+  top: 387px;
+  left: 306px;
+  position: absolute;
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .text-wrapper-19 {
+  top: 252px;
+  left: 304px;
+  position: absolute;
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .text-wrapper-20 {
+  top: 146px;
+  left: 306px;
+  position: absolute;
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-notification .img-wrapper {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 441px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .vector-wrapper {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 332px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .vector {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 6px;
+  left: 6px;
+}
+
+.element-a-notification .overlap-2 {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 197px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .overlap-3 {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  top: 576px;
+  left: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+}
+
+.element-a-notification .text-wrapper-21 {
+  width: 255px;
+  height: 22px;
+  top: 64px;
+  left: 88px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 30px;
+  text-align: center;
+  line-height: 22px;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-notification .bring-back {
+  position: absolute;
+  width: 19px;
+  height: 16px;
+  top: 69px;
+  left: 38px;
+}
+
+.element-a-notification .vector-2 {
+  position: absolute;
+  width: 21px;
+  height: 18px;
+  top: -1px;
+  left: -1px;
+}
+/* Original CSS will be injected here */
+
+/* Refactored CSS */
+.element-a-notification {
+  background-color: #f8de9a;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  min-height: 132vh;
+  height: 100%;
+}
+
+.notification-container {
+  background-color: #f8de9a;
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.notification-header {
+  position: relative;
+  height: 114px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-title {
+  width: 255px;
+  height: 22px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: var(--letters-and-icons);
+  font-size: 30px;
+  text-align: center;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.back-button {
+  position: absolute;
+  width: 19px;
+  height: 16px;
+  top: 69px;
+  left: 38px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-icon {
+  width: 21px;
+  height: 18px;
+}
+
+.notification-content {
+  position: relative;
+  width: 430px;
+  height: 818px;
+  background-image: url(Rectangle\ 148.svg);
+  background-size: 100% 100%;
+}
+
+.notification-group {
+  position: relative;
+  padding-top: 20px;
+}
+
+.time-label {
+  height: 13px;
+  margin-left: 44px;
+  font-family: var(--subtext-font-family);
+  font-weight: var(--subtext-font-weight);
+  color: #052224;
+  font-size: var(--subtext-font-size);
+  line-height: var(--subtext-line-height);
+  white-space: nowrap;
+  letter-spacing: var(--subtext-letter-spacing);
+  font-style: var(--subtext-font-style);
+  margin-bottom: 15px;
+}
+
+.notification-item {
+  position: relative;
+  display: flex;
+  padding: 20px 37px;
+  align-items: flex-start;
+}
+
+.notification-icon {
+  width: 37px;
+  height: 37px;
+  background-color: #f8de9a;
+  border-radius: 12px;
+  position: relative;
+  margin-right: 14px;
+}
+
+.notification-icon img {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  top: 7px;
+  left: 7px;
+}
+
+.vaccine-icon img {
+  width: 25px;
+  height: 25px;
+  top: 6px;
+  left: 6px;
+}
+
+.notification-details {
+  flex: 1;
+}
+
+.notification-heading {
+  font-family: var(--subtitle-font-family);
+  font-weight: var(--subtitle-font-weight);
+  color: #052224;
+  font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-line-height);
+  letter-spacing: var(--subtitle-letter-spacing);
+  font-style: var(--subtitle-font-style);
+  margin-bottom: 3px;
+}
+
+.notification-description {
+  width: 255px;
+  font-family: "League Spartan-Regular", Helvetica;
+  font-weight: 400;
+  color: #052224;
+  font-size: 13px;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.notification-time {
+  height: 15px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: #0068ff;
+  font-size: var(--paragraph-font-size);
+  text-align: right;
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  white-space: nowrap;
+  font-style: var(--paragraph-font-style);
+  position: absolute;
+  right: 37px;
+  bottom: 10px;
+}
+
+.notification-divider {
+  width: 357px;
+  height: 1px;
+  margin: 10px auto;
+  border: none;
+  background-image: url(./img/line-8.svg);
+}

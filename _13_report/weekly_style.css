@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  font-family: 'Pretendard', sans-serif;
+  background-color: #FFFBEE;
+  color: #1a1a1a;
+}
+
+.report-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px 20px 100px;
+  background-color: #F9DF9E;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 20px;
+}
+
+.back-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.report-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 40px;
+}
+
+.summary-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px;
+  margin-bottom: 8px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.summary-icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 6px;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.summary-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.summary-value.highlight {
+  color: #1A75FF;
+}
+
+.report-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  background-color: #FFFBEE;
+  border-radius: 20px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  background-color: #000000;
+  color: white;
+}
+
+.chart-box {
+  background-color: transparent;
+  background-image: url("Rec.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+
+.chart-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-box {
+  flex: 1;
+  background-color: transparent;
+  text-align: center;
+}
+
+.stat-icon {
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 700;
+}

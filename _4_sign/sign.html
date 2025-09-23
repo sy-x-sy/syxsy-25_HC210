@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>알림 페이지</title>
+  </head>
+  <body>
+    <main class="element-a-notification">
+      <section class="notification-container">
+        <header class="notification-header">
+          <h1 class="notification-title">알림</h1>
+          <button class="back-button" aria-label="뒤로 가기"
+            onclick="if (history.length > 1) history.back(); else location.href='../home/home.html';">
+            <img class="back-icon" src="back.svg" alt="뒤로 가기 아이콘" />
+          </button>
+        </header>
+        <div class="notification-content">
+          <section class="notification-group">
+            <h2 class="time-label">오늘</h2>
+            <article class="notification-item">
+              <div class="notification-icon muscle-icon">
+                <img src="muscle.svg" alt="근육 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">근육 피로도 주의</h3>
+                <p class="notification-description">근육 피로도가 높습니다. 휴식을 취하세요.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+            <hr class="notification-divider" />
+            <article class="notification-item">
+              <div class="notification-icon heart-icon">
+                <img src="heart.svg" alt="심박수 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">심박수 주의</h3>
+                <p class="notification-description">심박수가 높습니다. 안정을 취하세요.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+          </section>
+          <section class="notification-group">
+            <h2 class="time-label">어제</h2>
+            <article class="notification-item">
+              <div class="notification-icon vaccine-icon">
+                <img src="vaccine.svg" alt="예방접종 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">예방접종</h3>
+                <p class="notification-description">이번 달 예정된 예방접종이 있습니다.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+            <hr class="notification-divider" />
+            <article class="notification-item">
+              <div class="notification-icon heart-icon">
+                <img src="heart.svg" alt="심박수 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">심박수 주의</h3>
+                <p class="notification-description">심박수가 높습니다. 안정을 취하세요.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+          </section>
+          <section class="notification-group">
+            <h2 class="time-label">이번주</h2>
+            <article class="notification-item">
+              <div class="notification-icon heart-icon">
+                <img src="heart.svg" alt="심박수 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">심박수 주의</h3>
+                <p class="notification-description">심박수가 높습니다. 안정을 취하세요.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+            <hr class="notification-divider" />
+            <article class="notification-item">
+              <div class="notification-icon heart-icon">
+                <img src="heart.svg" alt="심박수 아이콘" />
+              </div>
+              <div class="notification-details">
+                <h3 class="notification-heading">심박수 주의</h3>
+                <p class="notification-description">심박수가 높습니다. 안정을 취하세요.</p>
+              </div>
+              <time class="notification-time" datetime="2023-04-24T17:00">17:00 - April 24</time>
+            </article>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

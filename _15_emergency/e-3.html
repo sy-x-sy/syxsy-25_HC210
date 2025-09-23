@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>뼈가 부러졌을 때</title>
+  <!-- 공용 스타일 -->
+  <link rel="stylesheet" href="common.css" />
+</head>
+<body>
+  <main class="element-b-food-add">
+    <div class="div">
+      <section class="overlap-group" role="main" aria-labelledby="main-title">
+        <header class="frame-3">
+          <button class="bring-back" type="button" aria-label="뒤로 가기">
+            <img class="vector" src="../반려동물/vaccine/vacc/back.svg" alt="" />
+          </button>
+          <h1 class="text-wrapper-6" id="main-title">뼈가 부러졌을 때</h1>
+        </header>
+
+        <ol class="emergency-steps" aria-label="골절 시 응급처치 단계">
+          <li class="step-item">
+            <span class="text-wrapper-2" aria-hidden="true">1.</span>
+            <div class="step-center">
+              <div class="step-bubble">
+                <p>나무 판자나 골판지, 플라스틱 자 등을 대고 수건이나 거즈로 골절 부위를 감싸 고정한다.</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <span class="text-wrapper-3" aria-hidden="true">2.</span>
+            <div class="step-center">
+              <div class="step-bubble">
+                <p>신속히 동물병원으로 이동한다.</p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // 메뉴로 돌아가기
+    document.querySelector(".bring-back")
+      .addEventListener("click", () => location.href = "emergency.html");
+  </script>
+</body>
+</html>

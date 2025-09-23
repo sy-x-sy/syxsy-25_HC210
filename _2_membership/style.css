@@ -1,0 +1,418 @@
+.element-a-create-account {
+  background-color: #f8df9d;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 132vh;
+  height: 100%;
+}
+
+.element-a-create-account .div {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 932px;
+  position: relative;
+}
+
+.element-a-create-account .overlap-group {
+  position: absolute;
+  width: 430px;
+  height: 745px;
+  top: 187px;
+  left: 0;
+  background-image: url(Base\ Shape.svg);
+  background-size: 100% 100%;
+}
+
+.element-a-create-account .overlap {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 386px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .text-wrapper {
+  position: absolute;
+  width: 177px;
+  height: 14px;
+  top: 14px;
+  left: 36px;
+  opacity: 0.45;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: #031314;
+  font-size: 12px;
+  letter-spacing: 8.40px;
+  line-height: 14px;
+}
+
+.element-a-create-account .div-wrapper {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 469px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .overlap-2 {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 53px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .text-wrapper-2 {
+  position: absolute;
+  width: 293px;
+  height: 24px;
+  top: 7px;
+  left: 35px;
+  opacity: 0.45;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #031314;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.element-a-create-account .overlap-3 {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 136px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .overlap-4 {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 219px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .text-wrapper-3 {
+  width: 293px;
+  height: 24px;
+  top: 7px;
+  left: 36px;
+  opacity: 0.45;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #031314;
+  font-size: 16px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .DD-MM-YY-wrapper {
+  position: absolute;
+  width: 357px;
+  height: 41px;
+  top: 303px;
+  left: 37px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+}
+
+.element-a-create-account .text-wrapper-4 {
+  height: 23px;
+  top: 26px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .email {
+  position: absolute;
+  height: 23px;
+  top: 109px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.element-a-create-account .text-wrapper-5 {
+  height: 23px;
+  top: 192px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .text-wrapper-6 {
+  height: 23px;
+  top: 276px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .text-wrapper-7 {
+  height: 23px;
+  top: 359px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .text-wrapper-8 {
+  height: 23px;
+  top: 442px;
+  left: 55px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.element-a-create-account .log-in-dark-mode {
+  position: absolute;
+  width: 207px;
+  height: 45px;
+  top: 579px;
+  left: 116px;
+  background-color: var(--main-green);
+  border-radius: 30px;
+}
+
+.element-a-create-account .log-in {
+  position: absolute;
+  width: 220px;
+  height: 22px;
+  top: 10px;
+  left: -7px;
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--titlle-font-size);
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  line-height: var(--titlle-line-height);
+  font-style: var(--titlle-font-style);
+}
+
+.element-a-create-account .p {
+  width: 273px;
+  height: 28px;
+  top: 634px;
+  left: 79px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  color: transparent;
+  font-size: var(--paragraph-font-size);
+  text-align: center;
+  line-height: var(--paragraph-line-height);
+  position: absolute;
+  letter-spacing: var(--paragraph-letter-spacing);
+  font-style: var(--paragraph-font-style);
+}
+
+.element-a-create-account .span {
+  color: #093030;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+}
+
+.element-a-create-account .text-wrapper-9 {
+  color: #3299ff;
+  font-family: var(--paragraph-font-family);
+  font-style: var(--paragraph-font-style);
+  font-weight: var(--paragraph-font-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  line-height: var(--paragraph-line-height);
+  font-size: var(--paragraph-font-size);
+}
+
+.element-a-create-account .text-wrapper-10 {
+  height: 22px;
+  top: 99px;
+  left: 156px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #403a29;
+  font-size: 30px;
+  text-align: center;
+  line-height: 22px;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+/* Original CSS will be injected here */
+
+.element-a-create-account {
+  background-color: #f8df9d;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 142vh;
+}
+
+.account-container {
+  background-color: var(--main-green);
+  width: 430px;
+  height: 1002px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  margin-top: 99px;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #403a29;
+  font-size: 30px;
+  text-align: center;
+  line-height: 22px;
+}
+
+.signup-form {
+  width: 100%;
+  padding-top: 125px;
+  background-image: url(Base\ Shape.svg);
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 37px;
+}
+
+.form-label {
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #363130;
+  font-size: 15px;
+  line-height: normal;
+  margin-bottom: 4px;
+  margin-left: 18px;
+}
+
+.input-field {
+  width: 100%;
+  height: 41px;
+  background-color: var(--light-green);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #031314;
+  font-size: 16px;
+  opacity: 0.45;
+}
+
+.form-input[type="password"] {
+  font-family: "Poppins-Regular", Helvetica;
+  letter-spacing: 8.40px;
+  font-size: 12px;
+}
+
+.submit-button {
+  width: 207px;
+  height: 45px;
+  background-color: var(--main-green);
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.button-text {
+  font-family: var(--titlle-font-family);
+  font-weight: var(--titlle-font-weight);
+  color: var(--letters-and-icons);
+  font-size: var(--titlle-font-size);
+  text-align: center;
+  letter-spacing: var(--titlle-letter-spacing);
+  line-height: var(--titlle-line-height);
+  font-style: var(--titlle-font-style);
+}
+
+.login-prompt {
+  margin-top: 10px;
+  font-family: var(--paragraph-font-family);
+  font-weight: var(--paragraph-font-weight);
+  font-size: var(--paragraph-font-size);
+  text-align: center;
+  line-height: var(--paragraph-line-height);
+  letter-spacing: var(--paragraph-letter-spacing);
+  font-style: var(--paragraph-font-style);
+}
+
+.login-text {
+  color: #093030;
+}
+
+.login-link {
+  color: #3299ff;
+  cursor: pointer;
+}

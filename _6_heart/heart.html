@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>반려동물 심박 모니터링</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <style>
+    body { font-family:sans-serif; background:#f8e6a0; margin:0; }
+    .page-header { display:flex; align-items:center; padding:12px; background:#f8e6a0; }
+    .page-header h1 { flex:1; text-align:center; margin:0; font-size:18px; }
+    .back-button { background:none; border:none; cursor:pointer; }
+
+    .card {
+      background:#fff; margin:12px; padding:16px; border-radius:16px;
+      box-shadow:0 2px 6px rgba(0,0,0,.1);
+    }
+    .bpm-value { font-size:32px; font-weight:700; text-align:center; margin:8px 0; }
+    .status-label { text-align:center; font-size:14px; padding:4px 8px;
+      border-radius:12px; display:inline-block; }
+    .status-normal { background:#c6f6d5; color:#22543d; }
+    .status-warning { background:#fefcbf; color:#744210; }
+    .status-danger { background:#fed7d7; color:#742a2a; }
+
+    #bpmChart { width:100%; height:300px; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <button class="back-button" onclick="history.back()">←</button>
+    <h1>실시간 심박수 분석</h1>
+  </header>
+
+  <!-- BPM 카드 -->
+  <section class="card">
+    <div class="bpm-value" id="bpmValue">-- BPM</div>
+    <div style="text-align:center;">
+      <span class="status-label status-normal" id="bpmStatus">대기중</span>
+    </div>
+    <div style="text-align:center; margin-top:8px; font-size:12px; color:#555;">
+      <span id="updatedTime">업데이트 대기중…</span>
+    </div>
+  </section>
+
+  <!-- 실시간 그래프 -->
+  <section class="card">
+    <h2 style="margin:0 0 8px;">BPM 추이</h2>
+    <canvas id="bpmChart"></canvas>
+  </section>
+
+  <script>
+  (function(){
+    const ENDPOINT = "http://192.168.137.1:5000";  // {"ts":..., "bpm":숫자}
+    const REFRESH_MS = 2000;  // 2초마다 갱신
+    const MAX_POINTS = 30;    // 그래프에 표시할 최대 데이터 개수
+
+    const bpmValueEl = document.getElementById("bpmValue");
+    const bpmStatusEl = document.getElementById("bpmStatus");
+    const updatedEl = document.getElementById("updatedTime");
+
+    // Chart.js 초기화
+    const ctx = document.getElementById("bpmChart").getContext("2d");
+    const chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [],
+        datasets: [{
+          label: "BPM",
+          data: [],
+          borderColor: "#2f855a",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.25,
+          pointRadius: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        animation: false,
+        scales: {
+          x: { title: { display: true, text: "시간" } },
+          y: {
+            suggestedMin: 40, suggestedMax: 180,
+            title: { display: true, text: "BPM" }
+          }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+
+    function updateUI(bpm){
+      bpmValueEl.textContent = bpm+" BPM";
+
+      let cls="status-normal", txt="정상";
+      if (bpm>=120) { cls="status-warning"; txt="주의"; }
+      if (bpm>=150) { cls="status-danger"; txt="경고"; }
+      bpmStatusEl.className="status-label "+cls;
+      bpmStatusEl.textContent=txt;
+
+      updatedEl.textContent="업데이트: "+new Date().toLocaleTimeString();
+
+      // 차트 업데이트
+      const now = new Date().toLocaleTimeString();
+      chart.data.labels.push(now);
+      chart.data.datasets[0].data.push(bpm);
+
+      if(chart.data.labels.length > MAX_POINTS){
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+      }
+      chart.update();
+    }
+
+    async function tick(){
+      try{
+        const r=await fetch(ENDPOINT,{cache:"no-store"});
+        const json=await r.json();
+
+        // json 구조: {"ts": ..., "bpm": 숫자}
+        if(json && typeof json==="object" && "bpm" in json){
+          updateUI(json.bpm);
+        }
+      }catch(e){
+        console.error("Fetch error", e);
+      }
+      setTimeout(tick, REFRESH_MS);
+    }
+
+    tick();
+  })();
+  </script>
+</body>
+</html>
