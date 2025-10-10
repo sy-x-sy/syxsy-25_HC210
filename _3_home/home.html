@@ -20,15 +20,19 @@
             <img class="icon-notification" src="Vector1.svg" alt="알림 아이콘" />
           </a>
         </header>
+
+        <!-- ✅ 프로필 카드 -->
         <section class="pet-profile">
           <div class="pet-card">
             <img class="pet-avatar" src="free-icon-dog-119576461.svg" alt="반려동물 아바타" />
             <div class="pet-info">
-              <h2 class="pet-name">쏘세지</h2>
-              <p class="pet-details">3살 • 소형견 • 남</p>
+              <h2 class="pet-name">반려견</h2>
+              <p class="pet-details">정보 없음</p>
             </div>
           </div>
         </section>
+
+        <!-- ✅ 건강 상태 -->
         <section class="health-status">
           <div class="status-card">
             <img class="status-chart primary" src="Ellipse 193.svg" alt="건강 상태 차트 배경" />
@@ -39,6 +43,8 @@
             </div>
           </div>
         </section>
+
+        <!-- ✅ 네비게이션 -->
         <nav class="feature-navigation">
           <div class="feature-row">
             <a href="../_5_muscle/muscle.html" class="feature-item">
@@ -84,5 +90,19 @@
         </nav>
       </div>
     </main>
+
+    <!-- ✅ 로컬스토리지 연동 스크립트 -->
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const dogName = localStorage.getItem("dog_id") || "반려견";
+        const dogSize = localStorage.getItem("dog_size") || "크기 없음";
+        const dogGender = localStorage.getItem("dog_gender") || "성별 없음";
+        const dogPhoto = localStorage.getItem("dog_photo") || "free-icon-dog-119576461.svg";
+
+        document.querySelector(".pet-name").textContent = dogName;
+        document.querySelector(".pet-details").textContent = `${dogSize} • ${dogGender}`;
+        document.querySelector(".pet-avatar").src = dogPhoto;
+      });
+    </script>
   </body>
 </html>

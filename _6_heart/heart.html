@@ -1,135 +1,366 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>반려동물 심박 모니터링</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>반려동물 심박 모니터링</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        /* 기본 스타일 및 배경 */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background:#f8e6a0; 
+            margin:0; 
+            padding:0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 전체 화면 높이 사용 */
+        }
+        
+        /* 헤더 스타일 */
+        .page-header { 
+            display:flex; 
+            align-items:center; 
+            padding:12px; 
+            background:#f8e6a0; 
+            color:#333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .page-header h1 { 
+            flex:1; 
+            text-align:center; 
+            margin:0; 
+            font-size:18px; 
+            font-weight: 600;
+        }
+        .back-button { 
+            background:none; 
+            border:none; 
+            cursor:pointer; 
+            font-size:24px; 
+            color:#555;
+            padding: 0 10px;
+        }
 
-  <style>
-    body { font-family:sans-serif; background:#f8e6a0; margin:0; }
-    .page-header { display:flex; align-items:center; padding:12px; background:#f8e6a0; }
-    .page-header h1 { flex:1; text-align:center; margin:0; font-size:18px; }
-    .back-button { background:none; border:none; cursor:pointer; }
+        /* 공통 카드 스타일 */
+        .card {
+            background:#fffbee; 
+            margin:12px; 
+            padding:16px; 
+            border-radius:16px;
+            box-shadow:0 2px 8px rgba(0,0,0,.1);
+            flex-shrink: 0; /* 내용이 많아져도 카드 크기가 줄어들지 않도록 */
+        }
 
-    .card {
-      background:#fff; margin:12px; padding:16px; border-radius:16px;
-      box-shadow:0 2px 6px rgba(0,0,0,.1);
-    }
-    .bpm-value { font-size:32px; font-weight:700; text-align:center; margin:8px 0; }
-    .status-label { text-align:center; font-size:14px; padding:4px 8px;
-      border-radius:12px; display:inline-block; }
-    .status-normal { background:#c6f6d5; color:#22543d; }
-    .status-warning { background:#fefcbf; color:#744210; }
-    .status-danger { background:#fed7d7; color:#742a2a; }
+        /* 메인 BPM 카드 스타일 (Image 2 참조) */
+        .main-bpm-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px; /* 상하 패딩 늘림 */
+        }
+        .bpm-icon {
+            width: 70px; /* 아이콘 크기 키움 */
+            height: 70px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 36px; /* 임시 하트 아이콘 */
+            color: #d9534f;
+            box-sizing: border-box; /* 패딩, 보더가 크기에 포함 */
+            line-height: 1; /* 글자 세로 중앙 정렬 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d9534f" width="48px" height="48px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%; /* SVG 아이콘 크기 조정 */
+        }
+        .bpm-value { 
+            font-size:48px; /* 메인 BPM 더 크게 */
+            font-weight:700; 
+            color:#333; /* 색상 변경 */
+            margin:0;
+            display: flex;
+            align-items: baseline;
+        }
+        .bpm-value .unit {
+            font-size: 0.5em; /* BPM 텍스트 크기 조정 */
+            font-weight: normal;
+            margin-left: 5px;
+            color: #666;
+        }
+        .status-label { 
+            text-align:center; 
+            font-size:14px; 
+            padding:6px 12px; /* 패딩 늘림 */
+            border-radius:20px; /* 더 둥글게 */
+            display:inline-block; 
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        .status-normal { background:#e6ffed; color:#22543d; } /* Image 2의 정상 색상과 유사하게 */
+        .status-warning { background:#fff3e0; color:#b35900; } 
+        .status-danger { background:#ffebeb; color:#cc0000; }
 
-    #bpmChart { width:100%; height:300px; }
-  </style>
+        /* 일일 요약 카드 스타일 (Image 2 참조) */
+        .daily-summary-card {
+            padding: 16px;
+        }
+        .daily-summary-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 두 칸으로 나눔 */
+            gap: 12px; /* 간격 */
+        }
+        .summary-box {
+            background-color: #fefce8; /* Image 2의 카드 배경색 */
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .summary-box h3 {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+            color: #555;
+        }
+        .summary-value {
+            font-size: 28px; /* 값 크기 키움 */
+            font-weight: 700;
+            color: #333;
+        }
+        .min-value-display { color: #5cb85c; } /* 최저값 색상 */
+        .max-value-display { color: #f04e4e; } /* 최고값 색상 */
+
+        /* 최근 기록 목록 스타일 (Image 2 참조) */
+        .record-list-card {
+            flex-grow: 1; /* 남은 공간을 채우도록 */
+            display: flex;
+            flex-direction: column;
+        }
+        .record-list-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        .record-item-container {
+            flex-grow: 1;
+            overflow-y: auto; /* 내용이 많아지면 스크롤 */
+            max-height: 300px; /* 최대 높이 지정 (필요시 조정) */
+        }
+        .record-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px; /* 항목 간 간격 */
+            border-radius: 10px;
+            background-color: #f5f5f5; /* 기본 배경색 */
+            font-size: 14px;
+            color: #333;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); /* 옅은 테두리 효과 */
+        }
+        .record-item.status-normal-bg { background-color: #CAF6BB; } /* 정상일 때 배경색 */
+        .record-item.status-warning-bg { background-color: #fff3e0; } /* 주의일 때 배경색 */
+        .record-item.status-danger-bg { background-color: #ffebeb; } /* 경고일 때 배경색 */
+
+        .record-item .time {
+            font-weight: 600;
+            width: 60px; /* 시간 너비 고정 */
+            flex-shrink: 0;
+            margin-right: 15px;
+            color: #555;
+        }
+        .record-item .bpm-val {
+            font-weight: 700;
+            color: #000000;
+            margin-right: 10px;
+        }
+        .record-item .message {
+            flex-grow: 1;
+            color: #666;
+        }
+
+        /* 하단 업데이트 시간 */
+        .last-updated {
+            text-align:center; 
+            margin-top:8px; 
+            font-size:12px; 
+            color:#555;
+        }
+    </style>
 </head>
 <body>
-  <header class="page-header">
-    <button class="back-button" onclick="history.back()">←</button>
-    <h1>실시간 심박수 분석</h1>
-  </header>
+    <header class="page-header">
+        <button class="back-button" onclick="history.back()">←</button>
+        <h1>실시간 심박수 분석</h1>
+    </header>
 
-  <!-- BPM 카드 -->
-  <section class="card">
-    <div class="bpm-value" id="bpmValue">-- BPM</div>
-    <div style="text-align:center;">
-      <span class="status-label status-normal" id="bpmStatus">대기중</span>
-    </div>
-    <div style="text-align:center; margin-top:8px; font-size:12px; color:#555;">
-      <span id="updatedTime">업데이트 대기중…</span>
-    </div>
-  </section>
+    <section class="card main-bpm-card">
+        <div class="bpm-icon"></div> <div class="bpm-value" id="currentBPMDisplay">-- <span class="unit">BPM</span></div>
+        <span class="status-label status-normal" id="currentBPMStatus">대기중</span>
+    </section>
 
-  <!-- 실시간 그래프 -->
-  <section class="card">
-    <h2 style="margin:0 0 8px;">BPM 추이</h2>
-    <canvas id="bpmChart"></canvas>
-  </section>
+    <section class="card daily-summary-card">
+        <h2>일일 심박수 요약</h2>
+        <div class="summary-grid">
+            <div class="summary-box">
+                <h3>최저</h3>
+                <div class="summary-value min-value-display" id="minBPMDisplay">--</div>
+            </div>
+            <div class="summary-box">
+                <h3>최고</h3>
+                <div class="summary-value max-value-display" id="maxBPMDisplay">--</div>
+            </div>
+        </div>
+        <div class="last-updated">
+            <span id="dailySummaryUpdatedTime">업데이트 대기중…</span>
+        </div>
+    </section>
 
-  <script>
-  (function(){
-    const ENDPOINT = "http://192.168.137.1:5000";  // {"ts":..., "bpm":숫자}
-    const REFRESH_MS = 2000;  // 2초마다 갱신
-    const MAX_POINTS = 30;    // 그래프에 표시할 최대 데이터 개수
+    <section class="card record-list-card">
+        <h2>심박수 (업데이트 주기: <span id="refreshIntervalText">2초</span>)</h2>
+        <div class="record-item-container" id="heartRateRecordList">
+            <div class="record-item">
+                <span class="time">--:--</span>
+                <span class="bpm-val">-- BPM</span>
+                <span class="message">데이터 대기중...</span>
+            </div>
+        </div>
+    </section>
 
-    const bpmValueEl = document.getElementById("bpmValue");
-    const bpmStatusEl = document.getElementById("bpmStatus");
-    const updatedEl = document.getElementById("updatedTime");
+    <script>
+    (function(){
+        const ENDPOINT = "http://192.168.137.1:8000/latest";
+        const REFRESH_MS = 2000; // 2초마다 갱신 (디자인에 표기할 값)
+        const MAX_RECORD_ITEMS = 10; // 목록에 표시할 최대 기록 개수
 
-    // Chart.js 초기화
-    const ctx = document.getElementById("bpmChart").getContext("2d");
-    const chart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: [],
-        datasets: [{
-          label: "BPM",
-          data: [],
-          borderColor: "#2f855a",
-          borderWidth: 2,
-          fill: false,
-          tension: 0.25,
-          pointRadius: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        animation: false,
-        scales: {
-          x: { title: { display: true, text: "시간" } },
-          y: {
-            suggestedMin: 40, suggestedMax: 180,
-            title: { display: true, text: "BPM" }
-          }
-        },
-        plugins: { legend: { display: false } }
-      }
-    });
+        // DOM 요소 참조
+        const currentBPMDisplayEl = document.getElementById("currentBPMDisplay");
+        const currentBPMStatusEl = document.getElementById("currentBPMStatus");
+        const minBPMDisplayEl = document.getElementById("minBPMDisplay");
+        const maxBPMDisplayEl = document.getElementById("maxBPMDisplay");
+        const dailySummaryUpdatedTimeEl = document.getElementById("dailySummaryUpdatedTime");
+        const heartRateRecordListEl = document.getElementById("heartRateRecordList");
+        const refreshIntervalTextEl = document.getElementById("refreshIntervalText");
 
-    function updateUI(bpm){
-      bpmValueEl.textContent = bpm+" BPM";
+        // 초기 최소/최대값 및 기록 목록
+        let minHeartRate = null;
+        let maxHeartRate = null;
+        let heartRateRecords = []; // 기록을 저장할 배열
 
-      let cls="status-normal", txt="정상";
-      if (bpm>=120) { cls="status-warning"; txt="주의"; }
-      if (bpm>=150) { cls="status-danger"; txt="경고"; }
-      bpmStatusEl.className="status-label "+cls;
-      bpmStatusEl.textContent=txt;
+        // 새로고침 주기 텍스트 업데이트
+        refreshIntervalTextEl.textContent = `${REFRESH_MS / 1000}초`;
 
-      updatedEl.textContent="업데이트: "+new Date().toLocaleTimeString();
 
-      // 차트 업데이트
-      const now = new Date().toLocaleTimeString();
-      chart.data.labels.push(now);
-      chart.data.datasets[0].data.push(bpm);
+        function getStatusInfo(bpm) {
+            let cls = "status-normal", txt = "정상", msg = "안정적인 상태를 유지 중이에요.";
+            let bgCls = "status-normal-bg"; // 목록 배경색 클래스
 
-      if(chart.data.labels.length > MAX_POINTS){
-        chart.data.labels.shift();
-        chart.data.datasets[0].data.shift();
-      }
-      chart.update();
-    }
-
-    async function tick(){
-      try{
-        const r=await fetch(ENDPOINT,{cache:"no-store"});
-        const json=await r.json();
-
-        // json 구조: {"ts": ..., "bpm": 숫자}
-        if(json && typeof json==="object" && "bpm" in json){
-          updateUI(json.bpm);
+            if (bpm >= 120) { 
+                cls = "status-warning"; 
+                txt = "주의"; 
+                msg = "심박수 상승! 관찰이 필요해요."; 
+                bgCls = "status-warning-bg";
+            }
+            if (bpm >= 150) { 
+                cls = "status-danger"; 
+                txt = "경고"; 
+                msg = "심박수 매우 높음! 즉시 조치가 필요해요."; 
+                bgCls = "status-danger-bg";
+            }
+            return { cls, txt, msg, bgCls };
         }
-      }catch(e){
-        console.error("Fetch error", e);
-      }
-      setTimeout(tick, REFRESH_MS);
-    }
 
-    tick();
-  })();
-  </script>
+        function updateUI(bpm){
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+            const { cls, txt, msg, bgCls } = getStatusInfo(bpm);
+
+            // 1. 메인 BPM 카드 업데이트
+            currentBPMDisplayEl.innerHTML = `${bpm} <span class="unit">BPM</span>`;
+            currentBPMStatusEl.className = `status-label ${cls}`;
+            currentBPMStatusEl.textContent = txt;
+            
+            // 2. 일일 요약 (최소/최대) 업데이트
+            if (minHeartRate === null || bpm < minHeartRate) {
+                minHeartRate = bpm;
+            }
+            if (maxHeartRate === null || bpm > maxHeartRate) {
+                maxHeartRate = bpm;
+            }
+            minBPMDisplayEl.textContent = minHeartRate;
+            maxBPMDisplayEl.textContent = maxHeartRate;
+            dailySummaryUpdatedTimeEl.textContent = `업데이트: ${now.toLocaleTimeString()}`;
+
+            // 3. 최근 기록 목록 업데이트
+            // 새로운 기록 추가
+            heartRateRecords.unshift({ time: timeString, bpm: bpm, message: msg, statusClass: bgCls });
+            
+            // 최대 개수 유지
+            if (heartRateRecords.length > MAX_RECORD_ITEMS) {
+                heartRateRecords.pop();
+            }
+
+            // 목록 HTML 다시 그리기
+            heartRateRecordListEl.innerHTML = heartRateRecords.map(record => `
+                <div class="record-item ${record.statusClass}">
+                    <span class="time">${record.time}</span>
+                    <span class="bpm-val">${record.bpm} BPM</span>
+                    <span class="message">${record.message}</span>
+                </div>
+            `).join('');
+        }
+
+        // 데이터 가져오기 및 처리 함수 (JSON 응답 기준)
+        async function tick(){
+            try{
+                const r = await fetch(ENDPOINT, {cache:"no-store"});
+                
+                if (!r.ok) {
+                    throw new Error(`HTTP Error: ${r.status}`);
+                }
+
+                const json = await r.json(); 
+                const bpm = json.bpm;
+
+                if(!isNaN(bpm) && bpm > 0){
+                    updateUI(bpm);
+                } else {
+                    console.warn("Invalid data (BPM key missing or value not a number):", json);
+                }
+            }catch(e){
+                console.error("Fetch error:", e);
+                // 연결 오류 시 화면에 표시
+                currentBPMDisplayEl.innerHTML = `-- <span class="unit">BPM</span>`;
+                currentBPMStatusEl.className = "status-label status-danger";
+                currentBPMStatusEl.textContent = "연결 오류";
+
+                minBPMDisplayEl.textContent = "--";
+                maxBPMDisplayEl.textContent = "--";
+                dailySummaryUpdatedTimeEl.textContent = "데이터 불러오기 실패";
+
+                heartRateRecordListEl.innerHTML = `
+                    <div class="record-item status-danger-bg">
+                        <span class="time">--:--</span>
+                        <span class="bpm-val">-- BPM</span>
+                        <span class="message">데이터 연결 오류!</span>
+                    </div>
+                `;
+            }
+            setTimeout(tick, REFRESH_MS);
+        }
+
+        tick();
+    })();
+    </script>
 </body>
 </html>

@@ -54,10 +54,37 @@
           </button>
           <p class="login-prompt">
             <span class="login-text">이미 계정이 있으신가요?&nbsp;&nbsp;</span>
-            <a href="../_1_login/login.html" class="login-link">로그인하기</a>
+            <a href="../index.html" class="login-link">로그인하기</a>
           </p>
         </form>
       </div>
     </main>
+    <script>
+  const form = document.querySelector(".signup-form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nickname = document.getElementById("nickname").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const birthdate = document.getElementById("birthdate").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다!");
+      return;
+    }
+
+    // 브라우저 localStorage에 저장
+    const userData = { nickname, email, phone, birthdate, password };
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    alert("회원가입 완료!");
+    window.location.href = "../index.html"; // 로그인 페이지로 이동
+  });
+</script>
+
   </body>
 </html>

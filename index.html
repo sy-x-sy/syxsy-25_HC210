@@ -13,7 +13,7 @@
       <section class="login-container">
         <h1 class="welcome-heading">환영합니다!</h1>
         <div class="login-form-container">
-          <form class="login-form">
+          <form class="login-form" id="loginForm">
             <div class="form-group">
               <label for="email" class="form-label">아이디 (email)</label>
               <input type="email" id="email" class="form-input" placeholder="example@example.com" required />
@@ -29,5 +29,14 @@
         </div>
       </section>
     </main>
+
+    <script>
+      // ✅ 로그인 버튼 클릭 시 홈 화면으로 이동
+      document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // 기본 제출 막기
+        window.location.href = "../_3_home/home.html"; // 홈 화면 경로에 맞게 수정
+      });
+    </script>
+
   </body>
 </html>
