@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>프로필 - John Smith</title>
+    <title>프로필</title>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="profile.css" />
@@ -13,8 +13,11 @@
       <div class="div">
         <section class="overlap-group">
           <img class="rectangle" src="img/rectangle-148.svg" alt="" role="presentation" />
-          <h1 class="text-wrapper">John Smith</h1>
-          <img class="ellipse" src="img/ellipse-192.png" alt="John Smith 프로필 사진" />
+          
+          <h1 id="profileDisplayName" class="text-wrapper">John Smith</h1>
+          
+          <img id="profileAvatarImg" class="ellipse" src="img/ellipse-192.png" alt="프로필 사진" />
+
           <input id="avatarFile" type="file" accept="image/*" hidden />
           <nav class="frame" role="navigation" aria-label="프로필 메뉴">
             <button id="btnEditProfile" class="frame-2" type="button" aria-label="계정 편집">
@@ -49,27 +52,41 @@
           <h2 class="text-wrapper-5">프로필</h2>
         </header>
         <button id="btnBack" class="bring-back" type="button" aria-label="뒤로 가기">
-          <img class="vector-3" src="../_14_vaccine/vacc/back.svg" alt="" />
+          <img class="vector-3" src="../14_vaccine/vacc/back.svg" alt="" />
         </button>
       </div>
     </main>
-    <script>
-      // 프로필 사진 미리보기 스크립트 (기존 코드)
-      const avatarEl = document.querySelector('.ellipse');
-      const fileInput = document.getElementById('avatarFile');
-      avatarEl?.addEventListener('click', () => fileInput?.click());
-      fileInput?.addEventListener('change', () => {
-        const f = fileInput.files && fileInput.files[0];
-        if (!f) return;
-        const r = new FileReader();
-        r.onload = (e) => {
-          avatarEl.src = e.target.result;
-          avatarEl.style.background = 'none';
-        };
-        r.readAsDataURL(f);
-      });
 
-      // --- 화면 이동 스크립트 추가 ---
+    <script>
+      // --- localStorage에서 프로필 정보 불러오기 ---
+      const LS_KEY = 'accountProfile'; // 계정 편집 페이지와 동일한 키
+
+      function loadProfileData() {
+        try {
+          const rawData = localStorage.getItem(LS_KEY);
+          if (!rawData) return;
+
+          const profileData = JSON.parse(rawData);
+          
+          const displayNameElement = document.getElementById('profileDisplayName');
+          const avatarImgElement = document.getElementById('profileAvatarImg');
+
+          if (profileData.nick) {
+            displayNameElement.textContent = profileData.nick;
+          }
+          
+          if (profileData.photo) {
+            avatarImgElement.src = profileData.photo;
+          }
+        } catch (e) {
+          console.error("프로필 데이터를 불러오는 중 오류 발생:", e);
+        }
+      }
+
+      // 페이지가 열릴 때 프로필 정보 불러오기 실행
+      loadProfileData();
+
+      // --- 화면 이동 스크립트 (기존 코드) ---
       const btnEditProfile = document.getElementById('btnEditProfile');
       const btnEditDogProfile = document.getElementById('btnEditDogProfile');
       const btnSettings = document.getElementById('btnSettings');
@@ -78,29 +95,28 @@
 
       // '계정 편집' 버튼 클릭 시
       btnEditProfile?.addEventListener('click', () => {
-        window.location.href = '../11_profile_edit/account.html'; // 9.5.1 화면으로 이동
+        window.location.href = '../11_profile_edit/account.html';
       });
 
       // '반려견 프로필 편집' 버튼 클릭 시
       btnEditDogProfile?.addEventListener('click', () => {
-        window.location.href = '../_12_pet_edit/pet.html'; // 9.5.2_A 화면으로 이동
+        window.location.href = '../12_pet_edit/pet.html';
       });
 
       // '설정' 버튼 클릭 시
       btnSettings?.addEventListener('click', () => {
-        window.location.href = '../16_notice/notice_set.html'; // 9.5.2_D 화면으로 이동
+        window.location.href = '../17_settings/settings.html';
       });
 
       // '뒤로 가기' 버튼 클릭 시
       btnBack?.addEventListener('click', () => {
-        window.history.back(); // 이전 페이지로 돌아가기
+        window.history.back();
       });
 
-      // '로그아웃' 버튼 클릭 시 (예시)
+      // '로그아웃' 버튼 클릭 시
       btnLogout?.addEventListener('click', () => {
-        // 실제 로그아웃 로직 (예: 세션 삭제 후 로그인 페이지로 리디렉션)
         alert('로그아웃 되었습니다.');
-        window.location.href = '../1_login/login.html'; // 로그인 화면으로 이동
+        window.location.href = '../1_login/login.html';
       });
     </script>
   </body>

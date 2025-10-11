@@ -2,193 +2,179 @@
    Profile (account.css) — Figma 매칭
    ================================ */
 
-/* 폰트/색 */
+/* ---------- 기본 변수 / 폰트 ---------- */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
-:root{
-  --bg:#F8DE9A;       /* 상단/바탕 */
-  --panel:#FFF5DC;    /* 카드 */
-  --text:#22332B;     /* 본문 */
-  --muted:#5D6B60;    /* 보조 */
-  --icon:#58A6FF;     /* 아이콘 파랑 */
-  --r-2xl:28px;
-  --screen:430px;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:"Pretendard Variable","Pretendard",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
-  display:flex; justify-content:center; align-items:flex-start;
+:root {
+  --bg: #F8DE9A;       /* 상단/바탕 */
+  --panel: #FFF5DC;    /* 카드 */
+  --text: #22332B;     /* 본문 */
+  --muted: #5D6B60;    /* 보조 */
+  --icon: #abd2ff;     /* 아이콘 파랑 */
+  --r-2xl: 28px;
+  --screen: 430px;
 }
 
-/* 래퍼 */
-.element-a-profile{width:100%; display:flex; justify-content:center}
-.element-a-profile .div{
-  width:100%; max-width:var(--screen); min-height:100vh; position:relative;
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard Variable", "Pretendard", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* ===== 헤더(상단 둥근 배경) ===== */
-.div-wrapper{
-  height:120px; display:flex; align-items:center; justify-content:center;
-  background:var(--bg); border-top-left-radius:var(--r-2xl); border-top-right-radius:var(--r-2xl);
+/* ---------- 래퍼 ---------- */
+.element-a-profile {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-.text-wrapper-5{ margin:0; font-size:18px; font-weight:900; }
-
-/* 뒤로가기 */
-.bring-back{ position:absolute; top:20px; left:16px; border:0; background:transparent; padding:6px; cursor:pointer }
-.vector-3{ width:20px; height:20px; filter:brightness(.1); opacity:.9 }
-
-/* ===== 상단 카드 + 아바타 ===== */
-.overlap-group{
-  background:var(--panel);
-  border-top-left-radius:var(--r-2xl); border-top-right-radius:var(--r-2xl);
-  padding:56px 20px 28px;
-  min-height:calc(100vh - 120px);
-  display:block;
-}
-.rectangle{ display:none } /* 예전 배경 svg 제거 */
-
-.ellipse{
-  display:block; width:96px; height:96px; border-radius:50%;
-  object-fit:cover; background:#fff; border:4px solid #F4E9C8; box-shadow:0 .5px 0 rgba(0,0,0,.05);
-  margin:-80px auto 10px;             /* 상단 경계에 걸치기 */
-}
-.text-wrapper{                         /* John Smith */
-  margin:0 auto 18px; text-align:center; font-size:18px; font-weight:900;
+.element-a-profile .div {
+  width: 100%;
+  max-width: var(--screen);
+  min-height: 100vh;
+  position: relative;
+  margin: 0 auto;
 }
 
-/* ===== 메뉴 리스트 ===== */
-.frame{ display:grid; grid-auto-rows:min-content; gap:18px; margin-top:10px }
-
-.frame-2, .frame-3{
-  all:unset; display:flex; align-items:center; gap:14px;
-  padding:10px 8px; cursor:pointer;
+/* ---------- 헤더 ---------- */
+.div-wrapper {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-top-left-radius: var(--r-2xl);
+  border-top-right-radius: var(--r-2xl);
+  z-index: 2;
 }
-.text-wrapper-2, .text-wrapper-3, .text-wrapper-4{
-  font-size:14px; font-weight:800; color:var(--text);
-}
-
-/* 아이콘 공통(파란 원 안에 흰 아이콘) */
-.icon-profile, .vector-wrapper, .icon-setting, .icon-logout{
-  width:44px; height:44px; border-radius:14px;
-  background:#E6F0FF; display:flex; align-items:center; justify-content:center;
-}
-.icon-logout{ background:#58A6FF }            /* 로그아웃만 진한 파랑 */
-.icon-logout .vector-2{ filter:brightness(100) invert(1); }
-
-/* 아이콘 이미지 크기 보정 + 경로 깨져도 자리 유지 */
-.icon-profile .vector,
-.vector-wrapper .vector,
-.icon-setting .img,
-.icon-logout .vector-2{
-  width:22px; height:22px; object-fit:contain; display:block;
+.text-wrapper-5 {
+  margin:-50;
+  font-size: 22px;
+  font-weight: 700;
 }
 
-/* 레거시 절대배치 무효화 */
-.element-a-profile .overlap-group,
-.element-a-profile .frame,
-.element-a-profile .frame-2,
-.element-a-profile .frame-3{ position:static !important; }
-
-/* ===== 0811 패치: 레이아웃 고정 & Figma 매칭 ===== */
-.element-a-profile .div{ position:relative; max-width:430px; margin:0 auto; }
-
-/* 헤더를 화면 맨 위 고정(HTML 순서와 무관) */
-.div-wrapper{
-  position:absolute; top:0; left:0; right:0;
-  height:120px; display:flex; align-items:center; justify-content:center;
-  background:var(--bg);
-  border-top-left-radius:28px; border-top-right-radius:28px;
-  z-index:2;
+/* 뒤로가기 버튼 */
+.bring-back {
+  position: absolute;
+  top: 22px; left: 16px;
+  border: 0; background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  z-index: 3;
 }
-.text-wrapper-5{ margin:0; font-size:18px; font-weight:900; }
-
-/* 카드(패널) */
-.overlap-group{
-  background:var(--panel);
-  border-top-left-radius:28px; border-top-right-radius:28px;
-  padding:56px 20px 28px;
-  min-height:calc(100vh - 120px);
-  margin-top:120px;               /* 헤더 높이만큼 내려주기 */
+.vector-3 {
+  width: 20px; height: 20px;
+  filter: brightness(.1);
+  opacity: .9;
 }
-.rectangle{ display:none !important; }  /* 예전 배경 제거 */
 
-/* 아바타/이름 */
-.ellipse{
-  display:block; width:96px; height:96px; border-radius:50%;
-  object-fit:cover; background:#fff; border:4px solid #F4E9C8;
-  margin:-80px auto 10px;          /* 경계에 걸치기 */
-  box-shadow:0 .5px 0 rgba(0,0,0,.05);
+/* ---------- 상단 카드(프로필) ---------- */
+.overlap-group {
+  position: relative;
+  background: var(--panel);
+  border-top-left-radius: var(--r-2xl);
+  border-top-right-radius: var(--r-2xl);
+  padding: 56px 20px 28px;
+  min-height: calc(100vh - 120px);
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.text-wrapper{ margin:0 auto 18px; text-align:center; font-size:18px; font-weight:900; }
 
-/* 메뉴 리스트 */
-.frame{ display:grid; grid-auto-rows:min-content; gap:18px; margin-top:10px; }
-.frame-2,.frame-3{ all:unset; display:flex; align-items:center; gap:14px; padding:10px 8px; cursor:pointer; }
-.text-wrapper-2,.text-wrapper-3,.text-wrapper-4{ font-size:14px; font-weight:800; color:#22332B; }
-
-/* 아이콘 박스 */
-.icon-profile,.vector-wrapper,.icon-setting,.icon-logout{
-  width:44px; height:44px; border-radius:14px; background:#72777d;
-  display:flex; align-items:center; justify-content:center;
+/* 아바타 이미지 */
+.ellipse {
+  order: 1;
+  display: block;
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff url("img/user-placeholder.svg") center/60% no-repeat;
+  border: 4px solid #F4E9C8;
+  box-shadow: 0 .5px 0 rgba(0,0,0,.05);
+  margin: -76px auto 12px;
+  z-index: 3;
+  cursor: pointer;
+  font-size: 0;
+  color: transparent;
 }
-.icon-logout{ background:#58A6FF; }
-.icon-logout .vector-2{ filter:invert(1); }
+
+/* 이름 텍스트 */
+.text-wrapper {
+  order: 2;
+  margin: 0 0 18px 0;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+/* ---------- 메뉴 리스트 ---------- */
+.frame {
+  order: 3;
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 18px;
+  width: 100%;
+  margin-top: 10px;
+}
+.frame-2, .frame-3 {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 8px;
+  cursor: pointer;
+}
+.text-wrapper-2, .text-wrapper-3, .text-wrapper-4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---------- 아이콘 박스 (메뉴 네모) ---------- */
+.icon-profile, .vector-wrapper, .icon-setting, .icon-logout {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 기본 아이콘 배경 */
+.icon-profile, .vector-wrapper, .icon-setting {
+  background: #a8a8a8;  /* 중간 회색 */
+}
+
+/* 로그아웃만 파랑 */
+.icon-logout {
+  background: #fdb7b1;
+}
+.icon-logout .vector-2 {
+  filter: invert(1);
+}
 
 /* 아이콘 이미지 크기 통일 */
 .icon-profile .vector,
 .vector-wrapper .vector,
 .icon-setting .img,
-.icon-logout .vector-2{ width:22px; height:22px; object-fit:contain; display:block; }
-
-/* 뒤로가기 */
-.bring-back{ position:absolute; top:22px; left:16px; border:0; background:transparent; padding:6px; z-index:3; }
-.vector-3{ width:20px; height:20px; filter:brightness(.1); opacity:.9 }
-
-/* 깨진 이미지일 때 alt 텍스트가 보이지 않게 */
-.ellipse{
-  font-size:0;        /* alt 텍스트 숨김 */
-  color:transparent;  /* 혹시 모를 텍스트 색도 투명화 */
-  object-fit:cover;
+.icon-logout .vector-2 {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
 }
 
-/* 기본 플레이스홀더 (이미지 없을 때도 깔끔하게 보이게) */
-.ellipse{
-  background:#fff url("img/user-placeholder.svg") center/60% no-repeat; /* 아이콘 없으면 그냥 #fff만 */
-}
-
-/* 프로필 카드 내부를 세로 플렉스 정렬 → 순서를 CSS로 재배치 */
-.overlap-group{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-/* 동그라미가 이름보다 먼저 나오도록 순서 지정 + 위치 보정 */
-.ellipse{
-  order:1;
-  margin:-80px auto 10px;   /* 상단 경계에 살짝 걸치기 */
-  cursor:pointer;           /* 클릭 가능 표시 */
-}
-
-/* 이름은 동그라미 아래로(겹침 방지) */
-.text-wrapper{
-  order:2;
-  margin:0 0 18px 0;
-  text-align:center;
-}
-
-/* 메뉴는 그 다음 */
-.frame{ order:3; width:100%; }
-
-/* 아바타가 헤더 위로 나오게 + 위치 살짝 내려서 안 잘리게 */
-.overlap-group{ position: relative; }
-.ellipse{
-  position: relative;
-  z-index: 3;          /* 헤더(z-index:2)보다 위 */
-  margin: -76px auto 12px;  /* -80px → -56px로 내려서 반쯤만 겹치게 */
-}
-
-/* 이름과 간격 살짝 보정 (겹침 방지) */
-.text-wrapper{ margin: 0 0 18px 0; }
-
+/* ---------- 구조 보정 ---------- */
+.rectangle { display: none !important; }
+.element-a-profile .overlap-group,
+.element-a-profile .frame,
+.element-a-profile .frame-2,
+.element-a-profile .frame-3 { position: static !important; }

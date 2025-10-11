@@ -104,7 +104,7 @@
   <main class="screen">
     <header class="appbar">
       <button class="back" type="button" aria-label="뒤로 가기">
-        <img src="../vaccine/vacc/back.svg" alt="">
+        <img src="../14_vaccine/vacc/back.svg" alt="">
       </button>
       <h1>계정 편집</h1>
     </header>
@@ -208,13 +208,13 @@
       localStorage.setItem(LS_KEY, JSON.stringify(data));
     }
 
-    // 제출 → 저장 → (원하면 이동)
-    document.getElementById('accountForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      persist();
-      alert('계정 정보가 저장되었습니다.');
-      // location.href = '../profile/profile.html';
-    });
+    // 제출 → 저장 → 홈 화면으로 이동
+  document.getElementById('accountForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    persist(); // 1. 먼저 정보를 저장하고
+    alert('계정 정보가 저장되었습니다.'); // 2. 저장되었다고 알림을 띄운 뒤
+    location.href = '../10_1_set/set.html'; 
+  });
   </script>
 </body>
 </html>

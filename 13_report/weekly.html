@@ -64,106 +64,102 @@
     </div>
 
     <script>
-      const weeklyData = {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        fatigue: [2500, 7000, 8700, 9500, 12000, 500, 300],
-        heartRate: [7200, 8100, 9200, 10500, 11000, 700, 500],
-        avgFatigue: '11,420.00',
-        avgHeart: '20,000.20',
-        subtitle: '☑ 지난주보다 피로도가 증가했습니다.'
-      };
+  const weeklyBtn = document.getElementById('weeklyBtn');
+  const monthlyBtn = document.getElementById('monthlyBtn');
+  const avgFatigueEl = document.getElementById('avgFatigue'); // 평균 피로도 요소
+  const avgHeartRateEl = document.getElementById('avgHeartRate'); // 평균 심박수 요소
+  const reportSubtitleEl = document.getElementById('report-subtitle');
+  // '최고' 값 표시 요소들도 가져옵니다.
+  const maxFatigueEl = document.querySelector('.summary-item:nth-child(1) .summary-value');
+  const maxHeartRateEl = document.querySelector('.summary-item:nth-child(2) .summary-value');
 
-      const monthlyData = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        fatigue: [10000, 14000, 8000, 12000, 13000, 9000],
-        heartRate: [15000, 13000, 10000, 14000, 15000, 12000],
-        avgFatigue: '47,200.00',
-        avgHeart: '35,510.20',
-        subtitle: '☑ 지난달보다 피로도가 감소했습니다.'
-      };
-
-      const ctx = document.getElementById('fatigueChart').getContext('2d');
-      const fatigueChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: weeklyData.labels,
-          datasets: [
-            {
-              label: '피로도',
-              data: weeklyData.fatigue,
-              backgroundColor: '#f2b138',
-              borderRadius: 6,
-            },
-            {
-              label: '심박수',
-              data: weeklyData.heartRate,
-              backgroundColor: '#1A1A1A',
-              borderRadius: 6,
-            },
-          ],
+  const ctx = document.getElementById('fatigueChart').getContext('2d');
+  const fatigueChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [], // 처음에는 비워둡니다.
+      datasets: [
+        {
+          label: '평균 심박수 (피로도)', // API에 맞춰 레이블 변경
+          data: [], // 처음에는 비워둡니다.
+          backgroundColor: '#f2b138',
+          borderRadius: 6,
         },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-              labels: {
-                color: '#333',
-                font: {
-                  size: 14,
-                  weight: '500',
-                },
-              },
-            },
-          },
-          scales: {
-            y: {
-              ticks: {
-                beginAtZero: true,
-                stepSize: 2000,
-              },
-            },
-          },
+        {
+          label: '최고 심박수',
+          data: [], // 처음에는 비워둡니다.
+          backgroundColor: '#1A1A1A',
+          borderRadius: 6,
         },
-      });
+      ],
+    },
+    options: { /* 기존 옵션은 그대로 유지 */ }
+  });
 
-      // 전환 버튼 이벤트
-      const weeklyBtn = document.getElementById('weeklyBtn');
-      const monthlyBtn = document.getElementById('monthlyBtn');
-      const avgFatigue = document.getElementById('avgFatigue');
-      const avgHeartRate = document.getElementById('avgHeartRate');
-      const reportSubtitle = document.getElementById('report-subtitle');
+  // 서버에서 데이터를 가져와 차트와 텍스트를 업데이트하는 함수
+  async function updateReport(period) {
+    try {
+      // 1. Python 서버에 데이터 요청
+      const response = await fetch(`http://192.168.137.1:8000/report/${period}`);
+      const data = await response.json();
 
-      weeklyBtn.addEventListener('click', () => {
-        weeklyBtn.classList.add('active');
-        monthlyBtn.classList.remove('active');
+      if (data.report && data.report.length > 0) {
+        // 2. API 응답 데이터를 Chart.js 형식에 맞게 변환
+        const labels = data.report.map(day => new Date(day.date).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }));
+        const avgBpmData = data.report.map(day => day.avg_bpm); // 평균 심박수를 '피로도'로 사용
+        const maxBpmData = data.report.map(day => day.max_bpm); // 최고 심박수
 
-        fatigueChart.data.labels = weeklyData.labels;
-        fatigueChart.data.datasets[0].data = weeklyData.fatigue;
-        fatigueChart.data.datasets[1].data = weeklyData.heartRate;
+        // 3. 차트 데이터 업데이트
+        fatigueChart.data.labels = labels;
+        fatigueChart.data.datasets[0].data = avgBpmData;
+        fatigueChart.data.datasets[1].data = maxBpmData;
         fatigueChart.update();
 
-        avgFatigue.textContent = weeklyData.avgFatigue;
-        avgHeartRate.textContent = weeklyData.avgHeart;
-        reportSubtitle.textContent = weeklyData.subtitle;
-      });
+        // 4. 통계 텍스트 업데이트
+        const totalAvgBpm = avgBpmData.reduce((sum, val) => sum + val, 0) / avgBpmData.length;
+        const totalAvgMaxBpm = maxBpmData.reduce((sum, val) => sum + val, 0) / maxBpmData.length;
+        const overallMaxBpm = Math.max(...maxBpmData);
+        const overallMaxAvgBpm = Math.max(...avgBpmData);
 
-      monthlyBtn.addEventListener('click', () => {
-        monthlyBtn.classList.add('active');
-        weeklyBtn.classList.remove('active');
+        avgFatigueEl.textContent = totalAvgBpm.toFixed(2);
+        avgHeartRateEl.textContent = totalAvgMaxBpm.toFixed(2);
+        maxFatigueEl.textContent = overallMaxAvgBpm.toFixed(2);
+        maxHeartRateEl.textContent = overallMaxBpm.toFixed(2);
+        
+        // 부제는 필요에 따라 동적으로 생성하거나 고정
+        reportSubtitleEl.textContent = `☑ ${period === 'weekly' ? '주간' : '월간'} 리포트입니다.`;
 
-        fatigueChart.data.labels = monthlyData.labels;
-        fatigueChart.data.datasets[0].data = monthlyData.fatigue;
-        fatigueChart.data.datasets[1].data = monthlyData.heartRate;
+      } else {
+        // 데이터가 없을 경우 처리
+        console.log("서버에서 받은 데이터가 없습니다.");
+        fatigueChart.data.labels = [];
+        fatigueChart.data.datasets[0].data = [];
+        fatigueChart.data.datasets[1].data = [];
         fatigueChart.update();
+      }
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류 발생:", error);
+      alert("서버에서 데이터를 불러오는 데 실패했습니다. 백엔드 서버가 실행 중인지 확인해주세요.");
+    }
+  }
 
-        avgFatigue.textContent = monthlyData.avgFatigue;
-        avgHeartRate.textContent = monthlyData.avgHeart;
-        reportSubtitle.textContent = monthlyData.subtitle;
-      });
-      
-    </script>
+  // 버튼 클릭 이벤트 리스너
+  weeklyBtn.addEventListener('click', () => {
+    weeklyBtn.classList.add('active');
+    monthlyBtn.classList.remove('active');
+    updateReport('weekly');
+  });
+
+  monthlyBtn.addEventListener('click', () => {
+    monthlyBtn.classList.add('active');
+    weeklyBtn.classList.remove('active');
+    updateReport('monthly');
+  });
+
+  // 페이지가 처음 로드될 때 주간 리포트를 기본으로 불러오기
+  updateReport('weekly');
+</script>
+
   </body>
 </html>
 
