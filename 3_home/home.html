@@ -7,7 +7,51 @@
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="style.css" />
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* 도넛 차트 위치 및 크기 */
+      .chart-wrapper {
+        position: absolute;
+        top: 10px;
+        left: 45px;
+        width: 130px;
+        height: 130px;
+      }
+
+      canvas#fatigueChart {
+        width: 130px !important;
+        height: 130px !important;
+      }
+
+      .status-info-group {
+        position: absolute;
+        left: 190px; /* 도넛 차트 오른쪽에 위치 */
+        top: 50%; /* 수직 중앙 정렬을 위한 기준 */
+        transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
+        text-align: center; /* 내부 텍스트들 중앙 정렬 */
+      }
+
+      .status-card .status-title {
+        margin: 0;
+        font-size: 18px;
+        color: #333; /* 텍스트 색상 조정 */
+        white-space: nowrap;
+      }
+
+      .fatigue-state-chip {
+        display: inline-block; /* 내용물 크기에 맞게 */
+        margin-top: 15px; /* 제목과의 간격 */
+        padding: 10px 25px; /* 내부 여백 조정 */
+        border-radius: 30px; /* 둥근 모서리 */
+        font-size: 18px; /* 글꼴 크기 키움 */
+        font-weight: 700;
+        color: #052224;
+        background-color: #FFF; /* 기본 배경색 */
+        min-width: 100px; /* 최소 너비 지정 */
+      }
+    </style>
+</head>
   <body>
     <main class="element-a-home">
       <div class="app-container">
@@ -21,31 +65,29 @@
           </a>
         </header>
 
-        <!-- ✅ 프로필 카드 -->
         <section class="pet-profile">
           <a href="/syxsy-25_H210/10_profile/profile.html" class="pet-card">
-  <img class="pet-avatar" src="free-icon-dog-119576461.svg" alt="반려동물 아바타" />
-  <div class="pet-info">
-    <h2 class="pet-name">반려견</h2>
-    <p class="pet-details">정보 없음</p>
-  </div>
-</a>
-
-        </section>
-
-        <!-- ✅ 건강 상태 -->
-        <section class="health-status">
-          <div class="status-card">
-            <img class="status-chart primary" src="Ellipse 193.svg" alt="건강 상태 차트 배경" />
-            <img class="status-chart secondary" src="Ellipse 194.svg" alt="건강 상태 차트 전경" />
-            <h3 class="status-title">현재 근육 피로도</h3>
-            <div class="status-indicator">
-              <div class="status-value">양호</div>
+            <img class="pet-avatar" src="free-icon-dog-119576461.svg" alt="반려동물 아바타" />
+            <div class="pet-info">
+              <h2 class="pet-name">반려견</h2>
+              <p class="pet-details">정보 없음</p>
             </div>
-          </div>
+          </a>
         </section>
 
-        <!-- ✅ 네비게이션 -->
+        <section class="health-status">
+  <div class="status-card">
+    <div class="chart-wrapper">
+      <canvas id="fatigueChart"></canvas>
+    </div>
+
+    <div class="status-info-group">
+      <h3 class="status-title">현재 근육 피로도</h3>
+      <div id="fatigueStateChip" class="fatigue-state-chip">연결 중...</div>
+    </div>
+  </div>
+</section>
+
         <nav class="feature-navigation">
           <div class="feature-row">
             <a href="../5_muscle/muscle.html" class="feature-item">
@@ -92,18 +134,91 @@
       </div>
     </main>
 
-    <!-- ✅ 로컬스토리지 연동 스크립트 -->
     <script>
+      // 🐾 프로필 데이터 반영
       window.addEventListener("DOMContentLoaded", function () {
         const dogName = localStorage.getItem("dog_id") || "반려견";
         const dogSize = localStorage.getItem("dog_size") || "크기 없음";
         const dogGender = localStorage.getItem("dog_gender") || "성별 없음";
         const dogPhoto = localStorage.getItem("dog_photo") || "free-icon-dog-119576461.svg";
-
         document.querySelector(".pet-name").textContent = dogName;
         document.querySelector(".pet-details").textContent = `${dogSize} • ${dogGender}`;
         document.querySelector(".pet-avatar").src = dogPhoto;
       });
+
+      // 📊 Chart.js 도넛 초기화 (애니메이션 추가)
+      const ctx = document.getElementById("fatigueChart").getContext("2d");
+      const fatigueChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          datasets: [
+            {
+              data: [0, 100],
+              backgroundColor: ["#7ACB77", "#E0E0E0"],
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          cutout: "75%",
+          maintainAspectRatio: false,
+          animation: {
+            duration: 1200, // 1.2초 동안 애니메이션
+            easing: "easeInOutQuad", // 부드러운 애니메이션 곡선
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false },
+          },
+        },
+      });
+
+      // 🔄 실시간 데이터 반영
+      const ENDPOINT = "http://172.20.10.2/data";
+      // const fatigueValueEl = document.getElementById("fatigueValue"); // 퍼센트 값은 이제 표시하지 않으므로 제거
+      const fatigueStateChip = document.getElementById("fatigueStateChip"); // ✅ 새로운 상태 칩 요소
+
+      // ✅ getState 함수는 상태 텍스트와 배경색을 반환하도록 수정 (첫 번째 이미지의 색상을 참조)
+      function getState(f) {
+        if (f >= 70) return { text: "경고", bgColor: "#FEE2E2", textColor: "#D32F2F" }; // 경고 (빨간 배경, 빨간 글씨)
+        if (f >= 50) return { text: "주의", bgColor: "#FFF3E0", textColor: "#F57C00" }; // 주의 (주황 배경, 주황 글씨)
+        return { text: "양호", bgColor: "#E8F5E9", textColor: "#388E3C" }; // 양호 (녹색 배경, 녹색 글씨)
+      }
+
+      async function updateFatigue() {
+        try {
+          const r = await fetch(ENDPOINT, { cache: "no-store" });
+          const json = await r.json();
+          const fatigue = parseFloat(json.fatigue);
+
+          if (!isNaN(fatigue)) {
+            const s = getState(fatigue);
+            // 🔥 애니메이션 갱신 (차트 색상만 변경)
+            fatigueChart.data.datasets[0].data = [fatigue, 100 - fatigue];
+            fatigueChart.data.datasets[0].backgroundColor = [s.textColor, "#E0E0E0"]; // 도넛 색상도 상태 텍스트 색상과 맞춤
+            fatigueChart.update("active");
+
+            // ✅ 상태 칩에 텍스트 및 스타일 적용
+            fatigueStateChip.textContent = s.text;
+            fatigueStateChip.style.backgroundColor = s.bgColor;
+            fatigueStateChip.style.color = s.textColor;
+          } else {
+            // fatigueValueEl.textContent = "--%"; // 퍼센트 값 표시하지 않음
+            fatigueStateChip.textContent = "연결 끊김";
+            fatigueStateChip.style.backgroundColor = "#E0E0E0";
+            fatigueStateChip.style.color = "#888";
+          }
+        } catch (e) {
+          // fatigueValueEl.textContent = "--%"; // 퍼센트 값 표시하지 않음
+          fatigueStateChip.textContent = "연결 끊김";
+          fatigueStateChip.style.backgroundColor = "#E0E0E0";
+          fatigueStateChip.style.color = "#888";
+        }
+      }
+
+      // 2초마다 부드럽게 갱신
+      setInterval(updateFatigue, 2000);
+      updateFatigue();
     </script>
   </body>
 </html>
