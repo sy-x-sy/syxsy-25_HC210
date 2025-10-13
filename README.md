@@ -81,6 +81,47 @@
 
 ### 5. 핵심 소스코드
 
-- 소스코드 설명: 
-  
+- 소스코드 설명: 핵심 PPG 신호 분석 로직 
+
+```cpp
+#include <HTTPClient.h>
+#include <SparkFun_Bio_Sensor_Hub_Library.h>
+
+SparkFun_Bio_Sensor_Hub bioHub(4, 13);
+bioData body;
+
+String getStatus(int bpm) {
+  if (bpm < 60) return "low";
+  if (bpm > 100) return "high";
+  return "normal";
+}
+
+void loop() {
+  body = bioHub.readBpm();                // 💓 심박수 측정
+  int bpm = int(round(body.heartRate));   // 소수점 제거
+
+  if (bpm > 0) {                          // 0 제외 (유효값만)
+    String status = getStatus(bpm);       // 상태 분류
+
+    // JSON 데이터 생성
+    String json = "{\"bpm\":" + String(bpm) + ",\"status\":\"" + status + "\"}";
+    Serial.println("Sending: " + json);
+
+    // 서버로 전송
+    HTTPClient http;
+    http.begin("http://172.20.10.2:8000/heartbeat_raw");
+    http.addHeader("Content-Type", "application/json");
+    int httpResponseCode = http.POST(json);
+
+    if (httpResponseCode > 0)
+      Serial.println("✅ Sent successfully, code: " + String(httpResponseCode));
+    else
+      Serial.println("❌ Error sending data, code: " + String(httpResponseCode));
+
+    http.end();
+  }
+
+  delay(1000); // 1초마다 전송
+}
+
 
