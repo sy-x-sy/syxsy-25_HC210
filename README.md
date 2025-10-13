@@ -70,6 +70,7 @@
 - 서비스 구성도
 
 - 엔티티 관계도
+<img src="./ERD.png" width="500px" alt="ERD">
 
   ---
 
