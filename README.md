@@ -68,6 +68,7 @@
 ### 3. 시스템 구성도
 
 - 서비스 구성도
+<img src="./SYSTEM.png" width="500px" alt="SYSTEM">
 
 - 엔티티 관계도
 <img src="./ERD.png" width="500px" alt="ERD">
