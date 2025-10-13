@@ -42,3 +42,14 @@ AI/Signal Processing:  NumPy, SciPy
 데이터베이스: SQlite
 IoT/디바이스: Arduino, ESP32, MyoWare 2.0 EMG Sensor, MAX30101 PPG Sensor
 
+2. 팀원 소개
+| 이름 | 역할 |
+|------|------|
+| 이수연 | 총괄 팀장 / UI/UX 기획 |
+| 김수영 | UI/UX 기획 / 하드웨어 설계 |
+| 송현아 | 하드웨어 설계 / 백엔드(EMG) |
+| 강민진 | 백엔드(EMG) / API 개발 |
+| 이채은 | 백엔드(PPG) / 신호 전처리 |
+| 장기영 | 기술 자문 / 프로젝트 멘토링 |
+
+
