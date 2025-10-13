@@ -123,5 +123,74 @@ void loop() {
 
   delay(1000); // 1초마다 전송
 }
+```
+
+- 소스코드 설명: EMG 센서가 아날로그 신호를 읽어 BLE로 실시간 전송하는 코드
+
+```cpp
+#include <ArduinoBLE.h>
+#include <MyoWare.h>
+
+const char* kLocalName = "MyoWareSensor1";
+MyoWare myoware;
+BLEService myoWareService(MyoWareBLE::uuidMyoWareService.c_str());
+BLEStringCharacteristic sensorCharacteristic(
+  MyoWareBLE::uuidMyoWareCharacteristic.c_str(),
+  BLERead | BLENotify, 20);
+
+const int kAnalogPin = A0;  // 센서 연결 핀
+
+void loop() {
+  BLEDevice central = BLE.central();
+  if (central) {
+    while (central.connected()) {
+      int raw = analogRead(kAnalogPin);     // 💪 근전도 신호 읽기
+      char buf[20];
+      dtostrf((double)raw, 1, 0, buf);
+      sensorCharacteristic.writeValue(buf); // BLE로 실시간 전송
+      delay(5);
+    }
+  }
+  myoware.blinkStatusLED(); // 연결 대기 표시
+}
+```
+
+- 소스코드 설명: BLE로 수신한 EMG 신호를 1초 RMS로 변환하고 누적 피로도(Fatigue Index)를 계산
+
+```cpp
+#include <ArduinoBLE.h>
+#include <WebServer.h>
+
+double g_lastEMG = 0.0, g_fatigue = 0.0;
+double S_prev = 0.0, F_prev = 0.0;
+const double ALPHA = 0.6, K_INTENSITY = 4.5;
+const double GAMMA_ACTIVE = 0.010, GAMMA_REST = 0.035;
+const double BASELINE_S = 26.0;
+
+void loop() {
+  // BLE로부터 EMG 신호 수신
+  double v = ReadBLEData(ch);
+  pushSample(v, millis());
+
+  // 1초마다 RMS 계산
+  if (millis() - tLastCompute >= 1000) {
+    double RMS_t = currentRMS();
+
+    // 피로도 계산 (가중 이동평균 + 누적)
+    double r_t = normalize(RMS_t);
+    double S_raw = 100.0 * sqrt(r_t);
+    double S_t = ALPHA * S_raw + (1 - ALPHA) * S_prev;
+    double gamma = (S_t < 20.0 ? GAMMA_REST : GAMMA_ACTIVE);
+    double delta = (S_t - BASELINE_S) / K_INTENSITY;
+    double F_t = constrain(F_prev + delta - gamma, 0.0, 100.0);
+
+    g_lastEMG = v; 
+    g_fatigue = F_t;
+    S_prev = S_t; F_prev = F_t;
+
+    Serial.printf("EMG=%.3f  Fatigue=%.1f%%\n", g_lastEMG, g_fatigue);
+  }
+}
+```
 
 
