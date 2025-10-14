@@ -120,6 +120,10 @@
       font-weight: 700;
       color: #333;
     }
+   .chart-container canvas {
+    width: 100%;
+    height: 100%;
+  }   
 
     /* 타임라인 카드 */
     .timeline-card {
@@ -183,22 +187,17 @@
   </section>
 
   <!-- 요약 카드 -->
-  <section class="card summary-card">
-    <h2>피로도 요약</h2>
-    <div class="summary-grid">
-      <div class="summary-box">
-        <h3>최저 피로도</h3>
-        <div class="summary-value" id="minFatigueDisplay">-- %</div>
-      </div>
-      <div class="summary-box">
-        <h3>최고 피로도</h3>
-        <div class="summary-value" id="maxFatigueDisplay">-- %</div>
-      </div>
-    </div>
-    <div class="last-updated">
-      <span id="summaryUpdatedTime">업데이트 대기중…</span>
-    </div>
-  </section>
+<section class="card summary-card">
+  <h2>피로도 변화 추이</h2>
+  <div class="chart-container" style="height:180px; margin-bottom:10px;">
+    <!-- ✅ 그래프가 그려질 캔버스 추가 -->
+    <canvas id="fatigueChart"></canvas>
+  </div>
+  <div class="last-updated">
+    <span id="summaryUpdatedTime">업데이트 대기중…</span>
+  </div>
+</section>
+
 
   <!-- 타임라인 카드 -->
   <section class="card timeline-card">
@@ -213,101 +212,144 @@
 
   <script>
     (function(){
-      const ENDPOINT = "http://172.20.10.2/data"; // ESP32 주소
-      const REFRESH_MS = 1000; // 1초마다 갱신
-      const MAX_RECORD_ITEMS = 8;
+  const ENDPOINT = "http://172.20.10.2/data"; // ESP32 주소
+  const REFRESH_MS = 1000;   // 데이터 갱신 (1초)
+  const CHART_UPDATE_MS = 3000; // ✅ 그래프는 3초마다 갱신
+  const MAX_POINTS = 20;     // ✅ 그래프에 표시할 최대 포인트 수
 
-      const currentEMGDisplayEl = document.getElementById("currentEMGDisplay");
-      const currentEMGStatusEl = document.getElementById("currentEMGStatus");
-      const minFatigueDisplayEl = document.getElementById("minFatigueDisplay");
-      const maxFatigueDisplayEl = document.getElementById("maxFatigueDisplay");
-      const summaryUpdatedTimeEl = document.getElementById("summaryUpdatedTime");
-      const fatigueRecordListEl = document.getElementById("fatigueRecordList");
-      const refreshIntervalTextEl = document.getElementById("refreshIntervalText");
+  const currentEMGDisplayEl = document.getElementById("currentEMGDisplay");
+  const currentEMGStatusEl = document.getElementById("currentEMGStatus");
+  const summaryUpdatedTimeEl = document.getElementById("summaryUpdatedTime");
+  const fatigueRecordListEl = document.getElementById("fatigueRecordList");
+  const refreshIntervalTextEl = document.getElementById("refreshIntervalText");
 
-      let minFatigue = null;
-      let maxFatigue = null;
-      let fatigueRecords = [];
+  let fatigueRecords = [];
+  let fatigueData = [];
+  let lastChartUpdate = Date.now();
 
-      refreshIntervalTextEl.textContent = `${REFRESH_MS / 1000}초`;
+  refreshIntervalTextEl.textContent = `${REFRESH_MS / 1000}초`;
 
-      function getFatigueStatus(fatigue) {
-        let cls = "status-normal", txt = "정상", msg = "근육 상태 양호해요.", bgCls = "status-normal-bg";
-        if (fatigue >= 50) {
-          cls = "status-warning";
-          txt = "주의";
-          msg = "피로도 상승 중, 주의가 필요해요.";
-          bgCls = "status-warning-bg";
-        }
-        if (fatigue >= 70) {
-          cls = "status-danger";
-          txt = "경고";
-          msg = "피로도 급상승! 휴식이 필요해요.";
-          bgCls = "status-danger-bg";
-        }
-        return { cls, txt, msg, bgCls };
+  // ✅ Chart.js 라인 그래프 초기화
+  const ctx = document.getElementById("fatigueChart").getContext("2d");
+  const fatigueChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: "피로도 (%)",
+          data: [],
+          borderColor: "#ff7b00",
+          backgroundColor: "rgba(255, 123, 0, 0.2)",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          ticks: { color: "#555", font: { size: 11 } },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 100,
+          ticks: { color: "#555", font: { size: 11 }, stepSize: 20 },
+          grid: { color: "#eee" },
+        },
+      },
+    },
+  });
+
+  function getFatigueStatus(fatigue) {
+    let cls = "status-normal", txt = "정상", msg = "근육 상태 양호해요.", bgCls = "status-normal-bg";
+    if (fatigue >= 50) {
+      cls = "status-warning";
+      txt = "주의";
+      msg = "피로도 상승 중, 주의가 필요해요.";
+      bgCls = "status-warning-bg";
+    }
+    if (fatigue >= 70) {
+      cls = "status-danger";
+      txt = "경고";
+      msg = "피로도 급상승! 휴식이 필요해요.";
+      bgCls = "status-danger-bg";
+    }
+    return { cls, txt, msg, bgCls };
+  }
+
+  function updateUI(emg, fatigue) {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const { cls, txt, msg, bgCls } = getFatigueStatus(fatigue);
+
+    // 상단 표시
+    currentEMGDisplayEl.textContent = `${fatigue.toFixed(1)} %`;
+    currentEMGStatusEl.className = `emg-status-label ${cls}`;
+    currentEMGStatusEl.textContent = txt;
+
+    // 타임라인 갱신
+    fatigueRecords.unshift({ time: timeString, fatigue, message: msg, bgCls });
+    if (fatigueRecords.length > 8) fatigueRecords.pop();
+
+    fatigueRecordListEl.innerHTML = fatigueRecords.map(r => `
+      <div class="timeline-item ${r.bgCls}">
+        <span class="time">${r.time}</span>
+        <span class="message">피로도: ${r.fatigue.toFixed(1)}% - ${r.message}</span>
+      </div>
+    `).join('');
+
+    summaryUpdatedTimeEl.textContent = `업데이트: ${timeString}`;
+
+    // ✅ 일정 주기(3초)마다 그래프 갱신
+    const nowTime = Date.now();
+    if (nowTime - lastChartUpdate >= CHART_UPDATE_MS) {
+      fatigueData.push({ time: timeString, value: fatigue });
+      if (fatigueData.length > MAX_POINTS) fatigueData.shift(); // 오래된 데이터 제거
+
+      fatigueChart.data.labels = fatigueData.map(d => d.time.split(":").slice(1).join(":")); // 분:초만 표시
+      fatigueChart.data.datasets[0].data = fatigueData.map(d => d.value);
+      fatigueChart.update();
+      lastChartUpdate = nowTime;
+    }
+  }
+
+  async function tick() {
+    try {
+      const r = await fetch(ENDPOINT, { cache: "no-store" });
+      const json = await r.json();
+      const emg = parseFloat(json.emg);
+      const fatigue = parseFloat(json.fatigue);
+
+      if (!isNaN(emg) && !isNaN(fatigue)) {
+        updateUI(emg, fatigue);
+      } else {
+        console.warn("잘못된 데이터:", json);
       }
+    } catch (e) {
+      console.error("데이터 가져오기 실패:", e);
+      currentEMGDisplayEl.textContent = "--";
+      currentEMGStatusEl.className = "emg-status-label status-danger";
+      currentEMGStatusEl.textContent = "연결 오류";
 
-      function updateUI(emg, fatigue) {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-        const { cls, txt, msg, bgCls } = getFatigueStatus(fatigue);
+      fatigueRecordListEl.innerHTML = `
+        <div class="timeline-item status-danger-bg">
+          <span class="time">--:--</span>
+          <span class="message">데이터 연결 오류!</span>
+        </div>
+      `;
+    }
+    setTimeout(tick, REFRESH_MS);
+  }
 
-        // 상단 표시
-        currentEMGDisplayEl.textContent = `${fatigue.toFixed(1)} %`;
-        currentEMGStatusEl.className = `emg-status-label ${cls}`;
-        currentEMGStatusEl.textContent = txt;
+  tick();
+})();
 
-        // 요약 업데이트
-        if (minFatigue === null || fatigue < minFatigue) minFatigue = fatigue;
-        if (maxFatigue === null || fatigue > maxFatigue) maxFatigue = fatigue;
-        minFatigueDisplayEl.textContent = `${minFatigue.toFixed(1)} %`;
-        maxFatigueDisplayEl.textContent = `${maxFatigue.toFixed(1)} %`;
-        summaryUpdatedTimeEl.textContent = `업데이트: ${now.toLocaleTimeString()}`;
-
-        // 타임라인 갱신
-        fatigueRecords.unshift({ time: timeString, fatigue: fatigue, message: msg, bgCls });
-        if (fatigueRecords.length > MAX_RECORD_ITEMS) fatigueRecords.pop();
-
-        fatigueRecordListEl.innerHTML = fatigueRecords.map(r => `
-          <div class="timeline-item ${r.bgCls}">
-            <span class="time">${r.time}</span>
-            <span class="message">피로도: ${r.fatigue.toFixed(1)}% - ${r.message}</span>
-          </div>
-        `).join('');
-      }
-
-      async function tick(){
-        try{
-          const r = await fetch(ENDPOINT, { cache: "no-store" });
-          const json = await r.json();
-          const emg = parseFloat(json.emg);
-          const fatigue = parseFloat(json.fatigue);
-
-          if(!isNaN(emg) && !isNaN(fatigue)){
-            updateUI(emg, fatigue);
-            console.log(`✅ 업데이트: EMG ${emg.toFixed(1)}, Fatigue ${fatigue.toFixed(1)}%`);
-          } else {
-            console.warn("잘못된 데이터:", json);
-          }
-        }catch(e){
-          console.error("데이터 가져오기 실패:", e);
-          currentEMGDisplayEl.textContent = "--";
-          currentEMGStatusEl.className = "emg-status-label status-danger";
-          currentEMGStatusEl.textContent = "연결 오류";
-
-          fatigueRecordListEl.innerHTML = `
-            <div class="timeline-item status-danger-bg">
-              <span class="time">--:--</span>
-              <span class="message">데이터 연결 오류!</span>
-            </div>
-          `;
-        }
-        setTimeout(tick, REFRESH_MS);
-      }
-
-      tick();
-    })();
   </script>
 </body>
 </html>

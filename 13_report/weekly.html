@@ -4,32 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>주간/월간 리포트</title>
-    
     <link rel="stylesheet" href="weekly_style.css" />
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* ✅ x축 안 잘리게 강제 높이 지정 */
+      .chart-container {
+        position: relative;
+        width: 100%;
+        height: 280px; /* 기존보다 약간 높게 */
+        margin-top: 10px;
+        overflow: visible !important; /* ✅ 잘림 방지 */
+      }
+    </style>
   </head>
   <body>
     <div class="report-container">
       <div class="top-section">
-        
         <a href="../3_home/home.html" class="back-button">
-        <img src="../14_vaccine/vacc/back.svg" alt="Back" />
+          <img src="../14_vaccine/vacc/back.svg" alt="Back" />
         </a>
-        
         <h1 class="report-title">주간/월간 리포트</h1>
 
         <div class="summary-box">
-           <div class="summary-item">
+          <div class="summary-item">
             <div class="summary-label">최고 심박수</div>
             <div class="summary-value" id="maxHeartRate">0.00</div>
           </div>
-           <div class="summary-item">
+          <div class="summary-item">
             <div class="summary-label">평균 심박수</div>
             <div class="summary-value" id="avgHeartRate">0.00</div>
           </div>
         </div>
-        
         <p id="report-subtitle" class="report-subtitle">☑ 데이터를 불러오는 중입니다.</p>
       </div>
 
@@ -49,32 +55,38 @@
     </div>
 
     <script>
-      const weeklyBtn = document.getElementById('weeklyBtn');
-      const monthlyBtn = document.getElementById('monthlyBtn');
-      const maxHeartRateEl = document.getElementById('maxHeartRate');
-      const avgHeartRateEl = document.getElementById('avgHeartRate');
-      const reportSubtitleEl = document.getElementById('report-subtitle');
-      const ctx = document.getElementById('heartRateChart').getContext('2d');
+      const weeklyBtn = document.getElementById("weeklyBtn");
+      const monthlyBtn = document.getElementById("monthlyBtn");
+      const maxHeartRateEl = document.getElementById("maxHeartRate");
+      const avgHeartRateEl = document.getElementById("avgHeartRate");
+      const reportSubtitleEl = document.getElementById("report-subtitle");
+      const ctx = document.getElementById("heartRateChart").getContext("2d");
 
       const heartRateChart = new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels: [],
-          datasets: [{
-            label: '일일 평균 심박수',
-            data: [],
-            backgroundColor: '#dcdcdc',
-            borderRadius: 6,
-          }, {
-            label: '일일 최고 심박수',
-            data: [],
-            backgroundColor: '#4a4a4a',
-            borderRadius: 6,
-          }]
+          datasets: [
+            {
+              label: "일일 평균 심박수",
+              data: [],
+              backgroundColor: "#dcdcdc",
+              borderRadius: 6,
+            },
+            {
+              label: "일일 최고 심박수",
+              data: [],
+              backgroundColor: "#4a4a4a",
+              borderRadius: 6,
+            },
+          ],
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          layout: {
+            padding: { bottom: 30 }, // ✅ x축 글자 공간 확보
+          },
           plugins: {
             legend: { display: false },
           },
@@ -83,19 +95,24 @@
               beginAtZero: true,
               grid: {
                 drawBorder: false,
-                color: '#f0f0f0',
+                color: "#f0f0f0",
               },
               ticks: {
-                color: '#8e8e8e',
+                color: "#8e8e8e",
                 padding: 10,
-              }
+              },
             },
             x: {
+              display: true,
               grid: { display: false },
-              ticks: { color: '#8e8e8e', padding: 10, }
-            }
-          }
-        }
+              ticks: {
+                color: "#8e8e8e",
+                padding: 8,
+                font: { size: 13 },
+              },
+            },
+          },
+        },
       });
 
       async function updateReport(period) {
@@ -105,14 +122,17 @@
           const data = await response.json();
 
           if (data.report && data.report.length > 0) {
-            const labels = data.report.map(day => {
-                const date = new Date(day.date);
-                return period === 'weekly' 
-                    ? date.toLocaleDateString('ko-KR', { weekday: 'short' })
-                    : date.toLocaleDateString('ko-KR', { day: 'numeric' });
-            });
-            const avgBpmData = data.report.map(day => day.avg_bpm);
-            const maxBpmData = data.report.map(day => day.max_bpm);
+            // ✅ 요일 고정 (weekly)
+            const labels =
+              period === "weekly"
+                ? ["월", "화", "수", "목", "금", "토", "일"]
+                : data.report.map((day) => {
+                    const date = new Date(day.date);
+                    return date.toLocaleDateString("ko-KR", { day: "numeric" });
+                  });
+
+            const avgBpmData = data.report.map((day) => day.avg_bpm);
+            const maxBpmData = data.report.map((day) => day.max_bpm);
 
             heartRateChart.data.labels = labels;
             heartRateChart.data.datasets[0].data = avgBpmData;
@@ -120,41 +140,43 @@
             heartRateChart.update();
 
             const overallMaxBpm = Math.max(...maxBpmData);
-            const overallAvgBpm = avgBpmData.reduce((sum, val) => sum + val, 0) / avgBpmData.length;
+            const overallAvgBpm =
+              avgBpmData.reduce((sum, val) => sum + val, 0) / avgBpmData.length;
 
             maxHeartRateEl.textContent = overallMaxBpm.toFixed(2);
             avgHeartRateEl.textContent = overallAvgBpm.toFixed(2);
-            reportSubtitleEl.textContent = `☑ ${period === 'weekly' ? '주간' : '월간'} 리포트입니다.`;
+            reportSubtitleEl.textContent = `☑ ${
+              period === "weekly" ? "주간" : "월간"
+            } 리포트입니다.`;
           } else {
-            console.log("No data received.");
             heartRateChart.data.labels = [];
             heartRateChart.data.datasets[0].data = [];
             heartRateChart.data.datasets[1].data = [];
             heartRateChart.update();
-            maxHeartRateEl.textContent = 'N/A';
-            avgHeartRateEl.textContent = 'N/A';
-            reportSubtitleEl.textContent = '☑ 표시할 데이터가 없습니다.';
+            maxHeartRateEl.textContent = "N/A";
+            avgHeartRateEl.textContent = "N/A";
+            reportSubtitleEl.textContent = "☑ 표시할 데이터가 없습니다.";
           }
         } catch (error) {
           console.error("Failed to fetch report data:", error);
           alert("서버 연결에 실패했습니다. 백엔드 서버가 실행 중인지 확인해주세요.");
-          reportSubtitleEl.textContent = '☑ 데이터 로딩 실패';
+          reportSubtitleEl.textContent = "☑ 데이터 로딩 실패";
         }
       }
 
-      weeklyBtn.addEventListener('click', () => {
-        weeklyBtn.classList.add('active');
-        monthlyBtn.classList.remove('active');
-        updateReport('weekly');
+      weeklyBtn.addEventListener("click", () => {
+        weeklyBtn.classList.add("active");
+        monthlyBtn.classList.remove("active");
+        updateReport("weekly");
       });
 
-      monthlyBtn.addEventListener('click', () => {
-        monthlyBtn.classList.add('active');
-        weeklyBtn.classList.remove('active');
-        updateReport('monthly');
+      monthlyBtn.addEventListener("click", () => {
+        monthlyBtn.classList.add("active");
+        weeklyBtn.classList.remove("active");
+        updateReport("monthly");
       });
 
-      updateReport('weekly');
+      updateReport("weekly");
     </script>
   </body>
 </html>
